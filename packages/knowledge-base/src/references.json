@@ -1,0 +1,26 @@
+[
+  {
+    "id": "DEFRA_2023",
+    "title": "Government greenhouse gas conversion factors for company reporting",
+    "organization": "Department for Environment, Food & Rural Affairs (DEFRA)",
+    "publicationYear": 2023,
+    "url": "https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023",
+    "citation": "DEFRA (2023). UK Government Greenhouse Gas Conversion Factors for Company Reporting."
+  },
+  {
+    "id": "EPA_2023",
+    "title": "Emission Factors for Greenhouse Gas Inventories",
+    "organization": "Environmental Protection Agency (EPA)",
+    "publicationYear": 2023,
+    "url": "https://www.epa.gov/climateleadership/ghg-emission-factors-hub",
+    "citation": "US EPA (2023). Greenhouse Gas Emission Factors Hub."
+  },
+  {
+    "id": "IPCC_2021",
+    "title": "Sixth Assessment Report: The Physical Science Basis",
+    "organization": "Intergovernmental Panel on Climate Change (IPCC)",
+    "publicationYear": 2021,
+    "url": "https://www.ipcc.ch/report/ar6/wg1/",
+    "citation": "IPCC (2021). Climate Change 2021: The Physical Science Basis."
+  }
+]

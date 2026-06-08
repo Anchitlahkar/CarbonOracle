@@ -1,0 +1,23 @@
+{
+  "beefConsumption": {
+    "weeklyFrequencyThreshold": 5,
+    "confidenceBase": 0.92
+  },
+  "carDependency": {
+    "emissionsRatioThreshold": 50.0,
+    "confidenceBase": 0.90
+  },
+  "weekendSpike": {
+    "ratioIncreaseThreshold": 1.5,
+    "confidenceBase": 0.85
+  },
+  "shoppingHeavy": {
+    "weeklyFrequencyThreshold": 3,
+    "emissionsRatioThreshold": 35.0,
+    "confidenceBase": 0.80
+  },
+  "flightFrequency": {
+    "monthlyFrequencyThreshold": 1,
+    "confidenceBase": 0.95
+  }
+}

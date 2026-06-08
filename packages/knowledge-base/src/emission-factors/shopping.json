@@ -1,0 +1,47 @@
+[
+  {
+    "id": "shopping.clothing_item.item",
+    "category": "shopping",
+    "subCategory": "clothing_item",
+    "value": 7.0,
+    "unit": "item",
+    "source": "DEFRA_2023",
+    "sourceYear": 2023,
+    "version": "1.0",
+    "confidence": 0.75,
+    "uncertaintyPercent": 25,
+    "validFrom": "2023-01-01T00:00:00Z",
+    "validTo": null,
+    "referenceIds": ["DEFRA_2023"]
+  },
+  {
+    "id": "shopping.electronics_phone.item",
+    "category": "shopping",
+    "subCategory": "electronics_phone",
+    "value": 70.0,
+    "unit": "item",
+    "source": "DEFRA_2023",
+    "sourceYear": 2023,
+    "version": "1.0",
+    "confidence": 0.80,
+    "uncertaintyPercent": 20,
+    "validFrom": "2023-01-01T00:00:00Z",
+    "validTo": null,
+    "referenceIds": ["DEFRA_2023"]
+  },
+  {
+    "id": "shopping.electronics_laptop.item",
+    "category": "shopping",
+    "subCategory": "electronics_laptop",
+    "value": 300.0,
+    "unit": "item",
+    "source": "DEFRA_2023",
+    "sourceYear": 2023,
+    "version": "1.0",
+    "confidence": 0.82,
+    "uncertaintyPercent": 18,
+    "validFrom": "2023-01-01T00:00:00Z",
+    "validTo": null,
+    "referenceIds": ["DEFRA_2023"]
+  }
+]

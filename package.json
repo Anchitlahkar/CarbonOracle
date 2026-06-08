@@ -1,0 +1,28 @@
+{
+  "name": "carbonsense-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CarbonSense X — Carbon Footprint Awareness and Applied AI Behavioral Optimization Platform",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "packages/*"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev": "concurrently -n \"frontend,backend\" -c \"cyan,magenta\" \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "build:packages": "npm run build --workspace=@carbonsense/core && npm run build --workspace=@carbonsense/shared-types && npm run build --workspace=@carbonsense/knowledge-base && npm run build --workspace=@carbonsense/ai-orchestration && npm run build --workspaces --if-present",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
+    "build": "npm run build:packages && npm run build:backend && npm run build:frontend",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.1",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.6.0"
+  }
+}

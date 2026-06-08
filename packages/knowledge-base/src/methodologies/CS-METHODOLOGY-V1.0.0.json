@@ -1,0 +1,15 @@
+{
+  "id": "CS-METHODOLOGY-V1.0.0",
+  "version": "1.0.0",
+  "description": "CarbonSense Applied Behavioral Optimization calculation methodology. Aggregates activity log variables using validated, localized emission coefficients with confidence range mapping.",
+  "assumptions": [
+    "Grid emission intensities remain constant over the year.",
+    "Uncertainty limits follow standard Gaussian normal confidence deviations.",
+    "Calculations reflect total direct plus indirect Scope 1 and Scope 3 lifecycle warming values."
+  ],
+  "references": [
+    "DEFRA_2023",
+    "EPA_2023",
+    "IPCC_2021"
+  ]
+}
