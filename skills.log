@@ -1,0 +1,49 @@
+CarbonSense Project Skills Log
+Generated: 2026-06-09
+
+------------------------------------------------------------------------------------------------------------------------
+1. Name: android-cli
+   Path: C:\Users\Anchit\.gemini\config\plugins\android-cli-plugin\skills\SKILL.md
+   SHA256: 7eb90877ca98469ec8dde8c0787444b917583a6fc715c6eda3714f66c65c83a5
+   Description: Orchestrates Android development tasks including project creation, deployment, SDK management, and environment diagnostics.
+
+2. Name: canvas-design
+   Path: .agents/skills/canvas-design/SKILL.md
+   SHA256: 7bebc4a2cf108c55c1e52bb96b1050dc1ab2f9492e9c2d43f1fe57f826728f4d
+   Description: Create beautiful visual art in .png and .pdf documents using design philosophy.
+
+3. Name: carbonsense-architect
+   Path: .agents/skills/carbonsense-architect/SKILL.md
+   SHA256: 71119cce1915ae76983a79695e486c793c40c883c1c1ff402dd7251fef7003f5
+   Description: Master architecture context for CarbonSense — Carbon Footprint Awareness Platform built for Google Prompt Wars 2026. Contains stacks, directory boundaries, coding standards, and DB schema.
+
+4. Name: frontend-design
+   Path: .agents/skills/frontend-design/SKILL.md
+   SHA256: 70044bbc8e4c21d23b8c8b864956aa1515c1c6cb2f9df14148dbb8c4af6187e5
+   Description: Create distinctive, production-grade frontend interfaces with high design quality.
+
+5. Name: gemini-integrator
+   Path: .agents/skills/gemini-integrator/SKILL.md
+   SHA256: 6f79155613553d9bcf2a2957e0d553366bb76c8b3477fb5a3c6089a7a4e9f9e5
+   Description: Exact, working Gemini API integration patterns for CarbonSense (receipt scanner, AI coach TERRA, onboarding tips, or carbon calculations).
+
+6. Name: improve-codebase-architecture
+   Path: .agents/skills/improve-codebase-architecture/SKILL.md
+   SHA256: 6d915caa3358bbb2f5e5d42f7424f65ed1aeceb2aa0480e1d009a275e3352d17
+   Description: Find deepening opportunities in a codebase, refactoring patterns, and modular decoupling.
+
+7. Name: judging-hardener
+   Path: .agents/skills/judging-hardener/SKILL.md
+   SHA256: dfdf02bf4216fdc4b36115cf2d2db96ef7b4e5db31e05d86c1c22b8b3310856c
+   Description: Automatically enforce all 5 Prompt Wars judging criteria — Code Quality, Security, Efficiency, Testing, Accessibility — on any code written for CarbonSense.
+
+8. Name: three-js-builder
+   Path: .agents/skills/react-threefiber/SKILL.md
+   SHA256: d4d4ecac38663e44b0d89c9e1de98799ee5650057171cdc56d7a2eb2e6a79226
+   Description: Exact working Three.js patterns for CarbonSense's 3D scenes using @react-three/fiber and @react-three/drei.
+
+9. Name: web-design-guidelines
+   Path: .agents/skills/web-design-guidelines/SKILL.md
+   SHA256: f4647ca866a3accf763777f83e7682954f0187cd6bea7eea0399796652414e8f
+   Description: Review UI code for Web Interface Guidelines and accessibility compliance.
+------------------------------------------------------------------------------------------------------------------------
