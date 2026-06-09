@@ -8,7 +8,7 @@ import {
   CoachEvidenceBlock 
 } from '@carbonsense/shared-types';
 import { PromptManager } from '@carbonsense/ai-orchestration';
-import CoachContextBuilder from './CoachContextBuilder';
+import CoachContextBuilder from './CoachContextBuilder.js';
 
 export class CoachPromptBuilder {
   /**
@@ -27,7 +27,7 @@ export class CoachPromptBuilder {
 
     // Format evidence blocks into string list
     const evidenceBlocksText = evidence.length > 0
-      ? evidence.map((e, i) => {
+      ? evidence.map((e: CoachEvidenceBlock, i: number) => {
           return `${i + 1}. [${e.source}] ${e.metric}: ${e.value} (Confidence: ${(e.confidence * 100).toFixed(0)}%)`;
         }).join('\n')
       : 'No verified engine logs are currently available.';

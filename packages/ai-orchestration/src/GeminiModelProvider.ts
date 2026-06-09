@@ -161,5 +161,26 @@ export class GeminiModelProvider implements ModelProvider {
       return fail(new InfrastructureError(`Gemini Vision execution failed: ${error.message}`));
     }
   }
+
+  public async generateTextStream(
+    prompt: string,
+    options?: AIModelOptions
+  ): Promise<Result<{ stream: AsyncIterable<any>; countTokens: (text: string) => Promise<number> }>> {
+    const modelName = 'gemini-1.5-flash';
+    const model = this.getModel(modelName, options);
+
+    try {
+      const result = await model.generateContentStream(prompt);
+      return ok({
+        stream: result.stream,
+        countTokens: async (text: string) => {
+          const res = await model.countTokens(text);
+          return res.totalTokens;
+        }
+      });
+    } catch (error: any) {
+      return fail(new InfrastructureError(`Gemini stream failed: ${error.message}`));
+    }
+  }
 }
 export default GeminiModelProvider;

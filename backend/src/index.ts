@@ -39,6 +39,14 @@ app.get('/api/health', (_req, res) => {
   });
 });
 
+// Import route modules
+import scannerRouter from './routes/scanner.js';
+import coachRouter from './routes/coach.js';
+
+// Mount routes
+app.use('/api/scanner', scannerRouter);
+app.use('/api/coach', coachRouter);
+
 app.listen(PORT, () => {
   console.log(`[Server] CarbonSense X server running on http://localhost:${PORT}`);
 });

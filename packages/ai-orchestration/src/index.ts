@@ -28,6 +28,11 @@ export interface ModelProvider {
     schema?: any,
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>>;
+
+  generateTextStream?(
+    prompt: string,
+    options?: AIModelOptions
+  ): Promise<Result<{ stream: AsyncIterable<any>; countTokens: (text: string) => Promise<number> }>>;
 }
 
 export class ProviderRegistry {
