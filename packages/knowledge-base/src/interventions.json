@@ -1,0 +1,122 @@
+[
+  {
+    "id": "reduce_beef",
+    "title": "Reduce Beef Consumption",
+    "description": "Replace beef meals with plant-based alternatives.",
+    "category": "food",
+    "baseSavingsKg": 15.0,
+    "savingsMultiplier": 0.5,
+    "applicableSignal": "FrequentBeefConsumption",
+    "baseDifficulty": 45,
+    "baseResistance": 50,
+    "costEstimates": "Free"
+  },
+  {
+    "id": "green_commuting",
+    "title": "Green Commuting",
+    "description": "Substitute personal gasoline car commutes with public transit, cycling, or walking.",
+    "category": "transport",
+    "baseSavingsKg": 30.0,
+    "savingsMultiplier": 0.4,
+    "applicableSignal": "HighCarDependency",
+    "baseDifficulty": 60,
+    "baseResistance": 55,
+    "costEstimates": "$50"
+  },
+  {
+    "id": "reduce_flying",
+    "title": "Reduce Flying",
+    "description": "Reduce flight frequency by substituting short-haul flights with rail travel or virtual meetings.",
+    "category": "transport",
+    "baseSavingsKg": 100.0,
+    "savingsMultiplier": 0.6,
+    "applicableSignal": "HighFlightFrequency",
+    "baseDifficulty": 70,
+    "baseResistance": 65,
+    "costEstimates": "Free"
+  },
+  {
+    "id": "smart_thermostat",
+    "title": "Install Smart Thermostat",
+    "description": "Install a smart thermostat to optimize heating and cooling schedules.",
+    "category": "energy",
+    "baseSavingsKg": 12.0,
+    "savingsMultiplier": 0.15,
+    "applicableSignal": null,
+    "baseDifficulty": 25,
+    "baseResistance": 20,
+    "costEstimates": "$150"
+  },
+  {
+    "id": "led_lighting",
+    "title": "Switch to LED Bulbs",
+    "description": "Replace incandescent lightbulbs with high-efficiency LEDs.",
+    "category": "energy",
+    "baseSavingsKg": 5.0,
+    "savingsMultiplier": 0.05,
+    "applicableSignal": null,
+    "baseDifficulty": 10,
+    "baseResistance": 10,
+    "costEstimates": "$30"
+  },
+  {
+    "id": "home_insulation",
+    "title": "Improve Home Insulation",
+    "description": "Improve wall and attic insulation to reduce heating/cooling energy loss.",
+    "category": "energy",
+    "baseSavingsKg": 25.0,
+    "savingsMultiplier": 0.20,
+    "applicableSignal": null,
+    "baseDifficulty": 65,
+    "baseResistance": 40,
+    "costEstimates": "$$$"
+  },
+  {
+    "id": "green_electricity",
+    "title": "Switch to Renewable Electricity",
+    "description": "Switch electricity provider to a 100% renewable/green energy tariff.",
+    "category": "energy",
+    "baseSavingsKg": 50.0,
+    "savingsMultiplier": 0.80,
+    "applicableSignal": null,
+    "baseDifficulty": 20,
+    "baseResistance": 15,
+    "costEstimates": "Free"
+  },
+  {
+    "id": "reduce_shopping",
+    "title": "Reduce Discretionary Shopping",
+    "description": "Limit non-essential clothing and electronics shopping.",
+    "category": "shopping",
+    "baseSavingsKg": 15.0,
+    "savingsMultiplier": 0.30,
+    "applicableSignal": "ShoppingHeavyBehavior",
+    "baseDifficulty": 40,
+    "baseResistance": 45,
+    "costEstimates": "Free"
+  },
+  {
+    "id": "second_hand",
+    "title": "Buy Second Hand First",
+    "description": "Acquire pre-owned items instead of purchasing new manufactured goods.",
+    "category": "shopping",
+    "baseSavingsKg": 10.0,
+    "savingsMultiplier": 0.20,
+    "applicableSignal": "ShoppingHeavyBehavior",
+    "baseDifficulty": 35,
+    "baseResistance": 30,
+    "costEstimates": "Free"
+  },
+  {
+    "id": "weekend_efficiency",
+    "title": "Optimize Weekend Consumption",
+    "description": "Reduce energy and leisure transport emissions spike on weekends.",
+    "category": "transport",
+    "baseSavingsKg": 15.0,
+    "savingsMultiplier": 0.25,
+    "applicableSignal": "WeekendEmissionSpike",
+    "baseDifficulty": 30,
+    "baseResistance": 35,
+    "costEstimates": "Free"
+  }
+]

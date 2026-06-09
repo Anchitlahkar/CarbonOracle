@@ -103,18 +103,44 @@ export interface BehaviorProfile {
 }
 
 // 6. Optimization Plan
+export interface BehaviorResistanceScore {
+  score: number; // 0 to 100
+  riskFactor: number; // 0 to 1
+  habitStrength: number; // 0 to 1
+  reasoning: string;
+}
+
+export interface OptimizationCandidate {
+  id: string;
+  interventionId: string;
+  title: string;
+  description: string;
+  category: CarbonCategory;
+  estimatedSavingsKg: number;
+  difficultyScore: number; // 0 to 100
+  difficultyLevel: 'easy' | 'medium' | 'hard';
+  resistanceScore: BehaviorResistanceScore;
+  score: number; // MCDA score
+  reasoning: string;
+}
+
+export interface OptimizationTradeoff {
+  category: CarbonCategory;
+  potentialSavingsKg: number;
+  averageDifficulty: number; // 0 to 100
+  averageResistance: number; // 0 to 100
+  candidateCount: number;
+  description: string;
+}
+
 export interface OptimizationPlan {
   id: string;
   userId: string;
-  title: string;
-  description: string;
-  estimatedSavingsKg: number;
-  difficulty: 'easy' | 'medium' | 'hard';
-  costEstimates: string; // e.g., 'Free', '$50', etc.
-  category: CarbonCategory;
-  status: 'suggested' | 'active' | 'completed';
-  createdAt: Date;
+  candidates: OptimizationCandidate[];
+  tradeoffs: OptimizationTradeoff[];
+  generatedAt: Date;
 }
+
 
 // 7. Carbon DNA Profile
 export interface CarbonDNAProfile {

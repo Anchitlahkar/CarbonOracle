@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for packages/forecast-engine/src/BaselineForecaster.ts</title>
+    <title>Code coverage report for packages/optimization-engine/src/OptimizationAggregator.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">packages/forecast-engine/src</a> BaselineForecaster.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">packages/optimization-engine/src</a> OptimizationAggregator.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>57/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/44</span>
+                <span class='fraction'>57/57</span>
             </div>
         
             
@@ -107,36 +107,43 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">1635x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -148,53 +155,85 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ForecastProjection, BehaviorFeatureVector, ForecastSnapshot } from '@carbonsense/shared-types';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CarbonCategory, OptimizationCandidate, OptimizationTradeoff } from '@carbonsense/shared-types';
 &nbsp;
-export class BaselineForecaster {
+export class OptimizationAggregator {
   /**
-   * Projects daily mean emissions forward. Uncertainty expands with time.
+   * Groups candidates by carbon category and compiles the tradeoff analysis.
    */
-  public project(vector: BehaviorFeatureVector, horizonDays: number, baseConfidence: number): ForecastProjection {
-    const mean = vector.dailyEmissionsMean;
-    const stdDev = vector.dailyEmissionsStdDev;
-    const snapshots: ForecastSnapshot[] = [];
+  public aggregate(candidates: OptimizationCandidate[]): OptimizationTradeoff[] {
+    const categories: CarbonCategory[] = ['transport', 'food', 'energy', 'shopping'];
+    const tradeoffs: OptimizationTradeoff[] = [];
 &nbsp;
-    for (let day = 1; day &lt;= horizonDays; day++) {
-      // Baseline daily emission is flat mean
-      const projectedEmission = mean;
+    for (const category of categories) {
+      const catCandidates = candidates.filter(c =&gt; c.category === category);
 &nbsp;
-      // Bounds scale by standard deviation and square-root of time
-      const delta = stdDev * Math.sqrt(day);
-      const lowerBound = Math.max(0, mean - delta);
-      const upperBound = mean + delta;
+      if (catCandidates.length === 0) {
+        tradeoffs.push({
+          category,
+          potentialSavingsKg: 0,
+          averageDifficulty: 0,
+          averageResistance: 0,
+          candidateCount: 0,
+          description: `No active carbon reduction candidates were identified in the '${category}' category.`,
+        });
+        continue;
+      }
 &nbsp;
-      snapshots.push({
-        day,
-        projectedEmission: parseFloat(projectedEmission.toFixed(4)),
-        lowerBound: parseFloat(lowerBound.toFixed(4)),
-        upperBound: parseFloat(upperBound.toFixed(4)),
+      const potentialSavingsKg = catCandidates.reduce((sum, c) =&gt; sum + c.estimatedSavingsKg, 0);
+      const sumDifficulty = catCandidates.reduce((sum, c) =&gt; sum + c.difficultyScore, 0);
+      const sumResistance = catCandidates.reduce((sum, c) =&gt; sum + c.resistanceScore.score, 0);
+&nbsp;
+      const averageDifficulty = parseFloat((sumDifficulty / catCandidates.length).toFixed(1));
+      const averageResistance = parseFloat((sumResistance / catCandidates.length).toFixed(1));
+      const candidateCount = catCandidates.length;
+&nbsp;
+      // Classify the tradeoff profile for reasoning
+      let description = '';
+      if (averageDifficulty &gt;= 60 &amp;&amp; averageResistance &gt;= 60) {
+        description = `Category '${category}' offers substantial savings potential of ${potentialSavingsKg.toFixed(1)} kg but is characterized by high implementation difficulty (${averageDifficulty}) and strong behavioral resistance (${averageResistance}).`;
+      } else if (averageDifficulty &lt; 40 &amp;&amp; averageResistance &lt; 40) {
+        description = `Category '${category}' represents quick wins with highly accessible saving opportunities (${potentialSavingsKg.toFixed(1)} kg) that have low friction and minimal resistance.`;
+      } else {
+        description = `Category '${category}' provides moderate carbon reduction opportunities (${potentialSavingsKg.toFixed(1)} kg) with a balanced profile of ease and moderate user resistance.`;
+      }
+&nbsp;
+      tradeoffs.push({
+        category,
+        potentialSavingsKg: parseFloat(potentialSavingsKg.toFixed(2)),
+        averageDifficulty,
+        averageResistance,
+        candidateCount,
+        description,
       });
     }
 &nbsp;
-    return {
-      horizonDays,
-      snapshots,
-      confidence: parseFloat(baseConfidence.toFixed(3)),
-      reasoning: {
-        factors: ['Historical baseline mean daily emissions'],
-        assumptions: [
-          'Behavioral consumption volumes remain completely stable.',
-          'No external efficiency upgrades implemented.'
-        ],
-        confidenceDrivers: ['Historical data density', 'Time horizon decay']
-      }
-    };
+    return tradeoffs;
   }
 }
-export default BaselineForecaster;
+export default OptimizationAggregator;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

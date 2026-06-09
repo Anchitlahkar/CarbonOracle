@@ -8,6 +8,7 @@ import referencesJson from './references.json';
 import methodologyJson from './methodologies/CS-METHODOLOGY-V1.0.0.json';
 import behaviorThresholdsJson from './behavior-thresholds.json';
 import scenarioLibraryJson from './scenario-library.json';
+import interventionsJson from './interventions.json';
 
 // Typecast JSON assertions
 export const transportFactors = transportJson as unknown as EmissionFactor[];
@@ -18,6 +19,7 @@ export const references = referencesJson as unknown as ScientificReference[];
 export const methodologyMetadata = methodologyJson as unknown as MethodologyMetadata;
 export const behaviorThresholds = behaviorThresholdsJson as any;
 export const scenarioLibrary = scenarioLibraryJson as any;
+export const interventions = interventionsJson as any;
 
 /**
  * Returns all emission factors loaded from registry datasets.
@@ -58,3 +60,11 @@ export function getBehaviorThresholds(): any {
 export function getScenarioLibrary(): any {
   return scenarioLibrary;
 }
+
+/**
+ * Returns intervention definitions.
+ */
+export function getInterventions(): any[] {
+  return interventions;
+}
+
