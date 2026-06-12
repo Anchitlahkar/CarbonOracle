@@ -10,6 +10,9 @@ CarbonSense is organized as an npm workspaces monorepo:
 
 ```text
 PromptWars/
+├── api/                                 # Vercel Serverless Function entry point
+│   └── index.ts                         # Serves Express app under Serverless
+├── vercel.json                          # Vercel deployment routing and configuration
 ├── backend/                             # Express Node.js API server
 │   ├── src/
 │   │   ├── index.ts                     # Main entrypoint, Helm security, mounting routers

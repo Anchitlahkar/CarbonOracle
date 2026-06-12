@@ -47,6 +47,13 @@ import coachRouter from './routes/coach.js';
 app.use('/api/scanner', scannerRouter);
 app.use('/api/coach', coachRouter);
 
-app.listen(PORT, () => {
-  console.log(`[Server] CarbonSense X server running on http://localhost:${PORT}`);
-});
+// Export Express app instance for serverless environments
+export { app };
+export default app;
+
+// Only spin up the listen port if run directly and not in Vercel or testing
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`[Server] CarbonSense X server running on http://localhost:${PORT}`);
+  });
+}

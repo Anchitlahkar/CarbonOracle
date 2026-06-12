@@ -114,6 +114,8 @@ PromptWars Project Directory Structure
 │   ├── PHASE_2_EXECUTION_GUARDRAILS.md
 │   ├── PHASE_3_BEHAVIOR_ENGINE_REQUIREMENTS.md
 │   └── prompt.md
+├── api
+│   └── index.ts
 ├── backend
 │   ├── src
 │   │   ├── middleware
@@ -345,4 +347,6 @@ PromptWars Project Directory Structure
 ├── README.md
 ├── skills-lock.json
 ├── skills.log
+├── structure.txt
+├── vercel.json
 └── working.md

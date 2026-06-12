@@ -56,44 +56,58 @@ Maximize your score in under 3 minutes by following this high-density flow:
 
 ## 🛠 Technology Stack & Architecture
 
+* **Monorepo Architecture**: Zero Python dependencies. All calculation models, forecasts, taxonomy DNA profiles, and visual receipt parsing are written in 100% pure TypeScript/JavaScript.
 * **Frontend**: React 18, Vite 5, Tailwind CSS, Zustand, Recharts, Framer Motion.
 * **3D Globe**: Three.js mapped through `@react-three/fiber` and `@react-three/drei`.
-* **Backend**: Node.js, Express, Helmet, Rate Limiters, Multer.
+* **Backend**: Node.js, Express, Helmet, Rate Limiters, Multer, fully optimized for Vercel Serverless Functions.
 * **AI Model**: Google Gemini 1.5 Flash.
 * **Unit Testing**: Vitest asserting scientific calculator logic (all tests passing).
 
 ---
 
-## Graceful AI Fallback
+## ⚡ Serverless & Graceful AI Fallback
 
-CarbonSense supports both Online and Offline Intelligence Modes.
+CarbonSense supports both Online and Offline Intelligence Modes and is optimized to run on Vercel's Serverless environment:
 
-* **Online Mode**: Uses Gemini for conversational reasoning.
-* **Offline Mode**: Automatically activates when external AI services are unavailable.
-
-Offline recommendations continue using:
-* Carbon DNA Engine
-* Behavior Intelligence Engine
-* Forecast Engine
-* Optimization Engine
-
-No external AI service is required for core recommendation functionality.
+* **Online Mode**: Uses Gemini 1.5 Flash for conversational streaming reasoning (SSE) and receipt OCR scanning.
+* **Offline Mode**: Automatically activates when external AI keys or services are unavailable, utilizing deterministic local engines:
+  * Carbon DNA Engine
+  * Behavior Intelligence Engine
+  * Forecast Engine
+  * Optimization Engine
+* **Vercel Serverless Hardening**:
+  * Response streaming is fully compatible with Vercel's proxy gateways using the `X-Accel-Buffering: no` header.
+  * Multi-part uploads are handled in-memory and capped at `4MB` to stay below Vercel's strict `4.5MB` payload limit.
+  * The Express server listener automatically skips `app.listen()` when `process.env.VERCEL` is active.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started & Deployment
 
-### 1. Install Workspace Workspaces
+### Local Development
+
+#### 1. Install Dependencies
 ```bash
 npm run install:all
 ```
 
-### 2. Configure Environment
+#### 2. Configure Environment
 Set `GEMINI_API_KEY` and Supabase variables in your `backend/.env` and `frontend/.env` files (refer to `.env.example`).
 
-### 3. Build & Run
+#### 3. Build & Run
 ```bash
 npm run build
 npm run dev
 ```
 Navigate to `http://localhost:5173`.
+
+### Vercel Deployment
+
+Deploy the monorepo to Vercel as a single project:
+1. **Root Directory**: `.` (Workspace Root)
+2. **Build Command**: `npm run build`
+3. **Output Directory**: `frontend/dist`
+4. **Environment Variables**:
+   * **Backend**: `GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`
+   * **Frontend**: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+
