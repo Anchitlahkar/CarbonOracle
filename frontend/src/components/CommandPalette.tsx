@@ -55,55 +55,55 @@ export const CommandPalette: React.FC = () => {
 
   const commands: CommandItem[] = [
     {
-      icon: <Terminal size={16} />,
+      icon: <Terminal size={18} />,
       label: 'Go to Mission Control (Dashboard)',
       category: 'Navigation',
       action: () => { navigate('/dashboard'); setIsOpen(false); }
     },
     {
-      icon: <Globe size={16} />,
+      icon: <Globe size={18} />,
       label: 'Go to Planet Twin (Digital Twin)',
       category: 'Navigation',
       action: () => { navigate('/twin'); setIsOpen(false); }
     },
     {
-      icon: <Fingerprint size={16} />,
+      icon: <Fingerprint size={18} />,
       label: 'Go to Carbon DNA profile',
       category: 'Navigation',
       action: () => { navigate('/dna'); setIsOpen(false); }
     },
     {
-      icon: <TrendingUp size={16} />,
+      icon: <TrendingUp size={18} />,
       label: 'Go to multi-horizon Forecasts',
       category: 'Navigation',
       action: () => { navigate('/forecasts'); setIsOpen(false); }
     },
     {
-      icon: <Zap size={16} />,
+      icon: <Zap size={18} />,
       label: 'Go to Optimization Center',
       category: 'Navigation',
       action: () => { navigate('/optimization'); setIsOpen(false); }
     },
     {
-      icon: <ScanLine size={16} />,
+      icon: <ScanLine size={18} />,
       label: 'Launch Receipt Scanner tool',
       category: 'Tools',
       action: () => { navigate('/scanner'); setIsOpen(false); }
     },
     {
-      icon: <MessageSquare size={16} />,
+      icon: <MessageSquare size={18} />,
       label: 'Ask TERRA AI Carbon Coach',
       category: 'Tools',
       action: () => { navigate('/coach'); setIsOpen(false); }
     },
     {
-      icon: <User size={16} />,
+      icon: <User size={18} />,
       label: 'View Researcher Profile',
       category: 'Account',
       action: () => { navigate('/profile'); setIsOpen(false); }
     },
     {
-      icon: <LogOut size={16} className="text-accent-red" />,
+      icon: <LogOut size={18} className="text-accent-red" />,
       label: 'End Session (Sign Out)',
       category: 'Account',
       action: () => { logout(); setIsOpen(false); navigate('/'); }
@@ -166,31 +166,31 @@ export const CommandPalette: React.FC = () => {
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent-blue/30 to-transparent" />
             
             {/* Search header */}
-            <div className="flex items-center space-x-3 px-4 py-3 border-b border-white/[0.06]">
-              <Search size={16} className="text-text-muted/60 shrink-0" />
+            <div className="flex items-center space-x-3 px-4 py-3.5 border-b border-white/[0.06]">
+              <Search size={18} className="text-text-muted/60 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
                 value={search}
                 onChange={(e) => { setSearch(e.target.value); setActiveIndex(0); }}
                 placeholder="Search platform commands..."
-                className="w-full bg-transparent text-text-primary placeholder-text-subtle text-[13px] outline-none border-none focus:ring-0 font-display font-medium"
+                className="w-full bg-transparent text-text-primary placeholder-text-subtle text-[16px] outline-none border-none focus:ring-0 font-display font-medium"
                 aria-label="Command search input"
               />
               <div className="shrink-0 flex items-center space-x-1">
-                <kbd className="text-[9px] font-mono px-1.5 py-0.5 bg-white/5 border border-white/10 rounded-sm text-text-muted uppercase tracking-tighter">ESC</kbd>
+                <kbd className="text-[12px] font-mono px-2 py-0.5 bg-white/5 border border-white/10 rounded-sm text-text-muted uppercase tracking-tighter">ESC</kbd>
               </div>
             </div>
 
             {/* List items */}
             <div 
               ref={listRef}
-              className="max-h-[340px] overflow-y-auto p-1.5 space-y-0.5"
+              className="max-h-[340px] overflow-y-auto p-2 space-y-1"
               role="listbox"
               aria-label="Commands list"
             >
               {filtered.length === 0 ? (
-                <div className="px-4 py-8 text-center text-xs text-text-subtle font-mono uppercase tracking-widest opacity-40">
+                <div className="px-4 py-8 text-center text-[16px] text-text-subtle font-mono uppercase tracking-widest opacity-40">
                   No results matching "{search}"
                 </div>
               ) : (
@@ -201,7 +201,7 @@ export const CommandPalette: React.FC = () => {
                       key={idx}
                       onClick={cmd.action}
                       onMouseEnter={() => setActiveIndex(idx)}
-                      className={`flex items-center justify-between px-3 py-2 rounded-sm text-[11px] cursor-pointer transition-all duration-150 ${
+                      className={`flex items-center justify-between px-3 py-2.5 rounded-sm text-[16px] cursor-pointer transition-all duration-150 ${
                         active 
                           ? 'bg-accent-blue/5 text-accent-blue shadow-[inset_4px_0_0_0_#00D4FF]' 
                           : 'text-text-primary/80 hover:bg-white/[0.02]'
@@ -211,14 +211,14 @@ export const CommandPalette: React.FC = () => {
                     >
                       <div className="flex items-center space-x-3 min-w-0">
                         <div className={`${active ? 'text-accent-blue' : 'text-text-muted/40'} shrink-0 transition-colors`}>
-                          {React.cloneElement(cmd.icon as React.ReactElement, { size: 14 })}
+                          {React.cloneElement(cmd.icon as React.ReactElement, { size: 18 })}
                         </div>
                         <span className={`font-medium truncate uppercase tracking-tight ${active ? 'opacity-100' : 'opacity-70'}`}>
                           {cmd.label}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2 shrink-0">
-                        <span className={`text-[8px] font-mono px-1.5 py-0.5 rounded-sm uppercase tracking-tighter border ${
+                        <span className={`text-[12px] font-mono px-2 py-0.5 rounded-sm uppercase tracking-tighter border ${
                           active 
                             ? 'text-accent-blue/70 bg-accent-blue/5 border-accent-blue/10' 
                             : 'text-text-muted/30 bg-white/[0.01] border-white/[0.04]'
@@ -226,7 +226,7 @@ export const CommandPalette: React.FC = () => {
                           {cmd.category}
                         </span>
                         {active && (
-                          <span className="text-[10px] font-mono text-accent-blue animate-pulse">↵</span>
+                          <span className="text-[14px] font-mono text-accent-blue animate-pulse">↵</span>
                         )}
                       </div>
                     </div>
@@ -236,7 +236,7 @@ export const CommandPalette: React.FC = () => {
             </div>
             
             {/* Footer info panel */}
-            <div className="px-4 py-1.5 bg-white/[0.01] border-t border-white/[0.04] flex items-center justify-between text-[8px] font-mono text-text-subtle/40 uppercase tracking-[0.2em]">
+            <div className="px-4 py-2 bg-white/[0.01] border-t border-white/[0.04] flex items-center justify-between text-[12px] font-mono text-text-subtle/40 uppercase tracking-[0.2em]">
               <span>Navigate with ↑↓ and Enter</span>
               <span>CarbonSense Telemetry Controller</span>
             </div>

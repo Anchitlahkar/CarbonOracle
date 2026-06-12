@@ -30,7 +30,7 @@ export const PremiumLoader: React.FC<PremiumLoaderProps> = ({ label = 'LOADING T
         </div>
       </div>
       <motion.span 
-        className="text-[8px] tracking-[0.3em] font-bold text-text-muted/60 uppercase"
+        className="text-[14px] tracking-[0.3em] font-bold text-text-muted/60 uppercase"
         animate={{ opacity: [0.4, 1, 0.4] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
@@ -39,3 +39,4 @@ export const PremiumLoader: React.FC<PremiumLoaderProps> = ({ label = 'LOADING T
     </div>
   );
 };
+export default PremiumLoader;

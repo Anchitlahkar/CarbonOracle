@@ -19,18 +19,28 @@ function getHeaders(isMultipart = false): HeadersInit {
 }
 
 export async function fetchContextApi(): Promise<any> {
-  const res = await fetch(`${API_BASE}/api/coach/context`, {
-    method: 'GET',
-    headers: getHeaders(),
-  });
-  
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.error || `HTTP error! status: ${res.status}`);
+  try {
+    const res = await fetch(`${API_BASE}/api/coach/context`, {
+      method: 'GET',
+      headers: getHeaders(),
+    });
+    
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      const errorMsg = errData.error || `HTTP error! status: ${res.status}`;
+      const error = new Error(errorMsg) as any;
+      error.status = res.status;
+      throw error;
+    }
+    
+    const payload = await res.json();
+    return payload.data;
+  } catch (err: any) {
+    if (err.name === 'TypeError' && err.message.toLowerCase().includes('fetch')) {
+      err.status = -1;
+    }
+    throw err;
   }
-  
-  const payload = await res.json();
-  return payload.data;
 }
 
 export async function analyzeReceiptApi(file: File): Promise<any> {

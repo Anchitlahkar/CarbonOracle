@@ -7,6 +7,10 @@ import {
   CoachEvidenceBlock 
 } from '@carbonsense/shared-types';
 
+/**
+ * Translates all core intelligence engine profiles into a list of CoachEvidenceBlocks.
+ * Validated to run offline without any dependencies on external API providers.
+ */
 export class CoachContextBuilder {
   /**
    * Translates all core intelligence engine profiles into a list of CoachEvidenceBlocks.

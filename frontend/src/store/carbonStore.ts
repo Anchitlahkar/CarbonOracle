@@ -22,6 +22,7 @@ interface CarbonState {
   optimizationPlan: OptimizationPlan | null;
   carbonDNAProfile: CarbonDNAProfile | null;
   planetTwinProfile: PlanetTwinProfile | null;
+  chatHistory: any[];
   setUser: (user: UserProfile | null) => void;
   setSession: (session: any | null) => void;
   setLoading: (isLoading: boolean) => void;
@@ -30,6 +31,8 @@ interface CarbonState {
   loginMock: (username: string) => void;
   logout: () => Promise<void>;
   fetchContext: () => Promise<void>;
+  addChatMessage: (msg: any) => void;
+  clearChatHistory: () => void;
 }
 
 export const useCarbonStore = create<CarbonState>((set, get) => ({
@@ -43,6 +46,21 @@ export const useCarbonStore = create<CarbonState>((set, get) => ({
   optimizationPlan: null,
   carbonDNAProfile: null,
   planetTwinProfile: null,
+  chatHistory: (() => {
+    const saved = localStorage.getItem('carbonsense_chat_history');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {}
+    }
+    return [
+      {
+        id: 'welcome',
+        role: 'model',
+        content: 'Hello. I am TERRA, your carbon intelligence assistant. I have synthesized your behavior logs, forecasts, and Carbon DNA to help you build an action roadmap. How can I guide you today?'
+      }
+    ];
+  })(),
 
   setUser: (user) => set({ user }),
   setSession: (session) => set({ session }),
@@ -78,6 +96,7 @@ export const useCarbonStore = create<CarbonState>((set, get) => ({
     } catch (err) {
       console.error('Error during Supabase signout', err);
     } finally {
+      localStorage.removeItem('carbonsense_chat_history');
       set({ 
         user: null, 
         session: null, 
@@ -87,6 +106,13 @@ export const useCarbonStore = create<CarbonState>((set, get) => ({
         optimizationPlan: null,
         carbonDNAProfile: null,
         planetTwinProfile: null,
+        chatHistory: [
+          {
+            id: 'welcome',
+            role: 'model',
+            content: 'Hello. I am TERRA, your carbon intelligence assistant. I have synthesized your behavior logs, forecasts, and Carbon DNA to help you build an action roadmap. How can I guide you today?'
+          }
+        ],
         error: null
       });
     }
@@ -106,11 +132,56 @@ export const useCarbonStore = create<CarbonState>((set, get) => ({
       });
     } catch (err: any) {
       console.error('Failed to fetch user carbon telemetry:', err);
+      
+      let mappedError = 'system_unavailable';
+      const status = err.status;
+      const message = (err.message || '').toLowerCase();
+      
+      if (
+        status === 401 || 
+        status === 403 || 
+        message.includes('auth') || 
+        message.includes('session') || 
+        message.includes('token') || 
+        message.includes('jwt') || 
+        message.includes('unauthorized') || 
+        message.includes('expired')
+      ) {
+        mappedError = 'session_expired';
+      } else if (
+        status === -1 || 
+        message.includes('fetch') || 
+        message.includes('network') || 
+        message.includes('connection') || 
+        message.includes('dns') || 
+        message.includes('endpoint')
+      ) {
+        mappedError = 'network_issue';
+      }
+      
       set({ 
-        error: err.message || 'Failed to load telemetry context', 
+        error: mappedError, 
         isLoading: false 
       });
     }
+  },
+
+  addChatMessage: (msg) => {
+    const newHistory = [...get().chatHistory, msg];
+    localStorage.setItem('carbonsense_chat_history', JSON.stringify(newHistory));
+    set({ chatHistory: newHistory });
+  },
+
+  clearChatHistory: () => {
+    const welcome = [
+      {
+        id: 'welcome',
+        role: 'model',
+        content: 'Hello. I am TERRA, your carbon intelligence assistant. I have synthesized your behavior logs, forecasts, and Carbon DNA to help you build an action roadmap. How can I guide you today?'
+      }
+    ];
+    localStorage.setItem('carbonsense_chat_history', JSON.stringify(welcome));
+    set({ chatHistory: welcome });
   }
 }));
 

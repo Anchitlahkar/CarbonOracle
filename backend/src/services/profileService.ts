@@ -9,6 +9,11 @@ import {
   DNAEvolutionDirection
 } from '@carbonsense/shared-types';
 
+/**
+ * Retrieval service for user carbon footprint profiles.
+ * Hardened to support local execution of all CarbonSense engines 
+ * when operating in deterministic Offline Intelligence Mode.
+ */
 export function getUserProfile(userId: string): UserProfile {
   return {
     id: userId,

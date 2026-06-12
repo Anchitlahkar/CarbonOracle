@@ -10,6 +10,10 @@ import {
 import { PromptManager } from '@carbonsense/ai-orchestration';
 import CoachContextBuilder from './CoachContextBuilder.js';
 
+/**
+ * Constructs the compiled context text and system instructions for the LLM.
+ * Hardened to support offline intelligence mode execution.
+ */
 export class CoachPromptBuilder {
   /**
    * Constructs the compiled context text and system instructions for the LLM.

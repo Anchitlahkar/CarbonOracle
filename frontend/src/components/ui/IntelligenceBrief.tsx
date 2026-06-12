@@ -37,7 +37,7 @@ export const IntelligenceBrief: React.FC<IntelligenceBriefProps> = ({
     return parts.map((part, index) => {
       if (part.match(keywords)) {
         return (
-          <span key={index} className="text-text-primary font-semibold bg-white/5 px-1 py-0.5 rounded-sm border border-white/5 font-mono text-[10px] tracking-tight">
+          <span key={index} className="text-text-primary font-semibold bg-white/5 px-1.5 py-0.5 rounded-sm border border-white/5 font-mono text-[14px] tracking-tight">
             {part}
           </span>
         );
@@ -50,31 +50,31 @@ export const IntelligenceBrief: React.FC<IntelligenceBriefProps> = ({
     <Panel level={level} status={status} className={`relative flex flex-col justify-between ${className}`} {...props}>
       <div>
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/[0.04] pb-1.5 mb-2.5">
-          <div className="flex items-center space-x-1.5">
-            <Sparkles className="w-3 h-3 text-accent-blue" />
-            <h3 className="text-[10px] font-bold text-text-primary uppercase tracking-widest font-display">
+        <div className="flex items-center justify-between border-b border-white/[0.04] pb-2 mb-3">
+          <div className="flex items-center space-x-2">
+            <Sparkles className="w-5 h-5 text-accent-blue" />
+            <h3 className="text-[18px] font-bold text-text-primary uppercase tracking-widest font-display">
               {title}
             </h3>
           </div>
           {badge && (
-            <span className="text-[8px] font-mono bg-accent-blue/5 border border-accent-blue/20 text-accent-blue/80 px-1.5 py-0.5 rounded-sm uppercase font-bold tracking-tighter">
+            <span className="text-[12px] font-mono bg-accent-blue/5 border border-accent-blue/20 text-accent-blue/80 px-2 py-0.5 rounded-sm uppercase font-bold tracking-tighter">
               {badge}
             </span>
           )}
         </div>
 
         {/* Narrative Paragraph */}
-        <p className="text-[11px] text-text-muted/90 leading-relaxed font-body font-normal">
+        <p className="text-[16px] text-text-muted/90 leading-relaxed font-body font-normal">
           {renderFormattedNarrative(narrative)}
         </p>
 
         {/* Bullet Points */}
         {bulletPoints.length > 0 && (
-          <ul className="mt-2.5 space-y-1.5 border-t border-white/[0.03] pt-2">
+          <ul className="mt-3.5 space-y-2.5 border-t border-white/[0.03] pt-2.5">
             {bulletPoints.map((point, idx) => (
-              <li key={idx} className="flex items-start text-[10px] text-text-muted font-body">
-                <span className="inline-block w-1 h-1 rounded-full bg-accent-blue/60 mt-1.5 mr-2 shrink-0" />
+              <li key={idx} className="flex items-start text-[16px] text-text-muted font-body">
+                <span className="inline-block w-2 h-2 rounded-full bg-accent-blue/60 mt-2 mr-2.5 shrink-0" />
                 <span className="leading-snug">{point}</span>
               </li>
             ))}
@@ -84,9 +84,9 @@ export const IntelligenceBrief: React.FC<IntelligenceBriefProps> = ({
 
       {/* Telemetry Footer */}
       {(forecastConfidence || behaviorFreshness || modelIntegrity !== undefined) && (
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-3 pt-2 border-t border-white/[0.04] text-[9px] text-text-subtle font-mono uppercase tracking-tight">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-4 pt-2.5 border-t border-white/[0.04] text-[12px] text-text-subtle font-mono uppercase tracking-tight">
           {forecastConfidence && (
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1.5">
               <span className="opacity-60">Confidence:</span>
               <span className={`font-bold ${
                 forecastConfidence === 'High' ? 'text-accent-green' :
@@ -97,14 +97,14 @@ export const IntelligenceBrief: React.FC<IntelligenceBriefProps> = ({
           )}
 
           {behaviorFreshness && (
-            <div className="flex items-center space-x-1 border-l border-white/5 pl-3">
+            <div className="flex items-center space-x-1.5 border-l border-white/5 pl-4">
               <span className="opacity-60">Freshness:</span>
               <span className="text-text-primary/70">{behaviorFreshness}</span>
             </div>
           )}
 
           {modelIntegrity !== undefined && (
-            <div className="flex items-center space-x-1 border-l border-white/5 pl-3">
+            <div className="flex items-center space-x-1.5 border-l border-white/5 pl-4">
               <span className="opacity-60">Integrity:</span>
               <span className="text-accent-blue font-bold">{modelIntegrity}%</span>
             </div>

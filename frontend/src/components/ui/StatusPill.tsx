@@ -21,9 +21,9 @@ export const StatusPill: React.FC<StatusPillProps> = ({
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border tracking-wider font-mono ${styles[variant]} ${className}`}
+      className={`inline-flex items-center px-2.5 py-1 rounded-full text-[14px] font-semibold border tracking-wider font-mono ${styles[variant]} ${className}`}
     >
-      <span className="w-1 h-1 rounded-full mr-1.5 bg-current" />
+      <span className="w-1.5 h-1.5 rounded-full mr-2 bg-current" />
       {label.toUpperCase()}
     </span>
   );

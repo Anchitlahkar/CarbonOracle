@@ -4,14 +4,86 @@ import { authMiddleware } from '../middleware/auth.js';
 import { coachRateLimiter } from '../middleware/rateLimit.js';
 import { getUserContextProfiles, getUserProfile } from '../services/profileService.js';
 import CoachPromptBuilder from '../services/CoachPromptBuilder.js';
+import CoachContextBuilder from '../services/CoachContextBuilder.js';
 import { CostTracker } from '@carbonsense/ai-orchestration';
-import '../services/geminiService.js'; // Force service registration
+import { isApiKeyConfigured } from '../services/geminiService.js';
 
 const router = express.Router();
 
 interface Message {
   role: 'user' | 'model';
   content: string;
+}
+
+/**
+ * Streams the offline intelligence mode response deterministically.
+ */
+async function streamOfflineMode(res: any, contexts: any) {
+  const dna = contexts?.carbonDNAProfile;
+  const optimization = contexts?.optimizationPlan;
+  const twin = contexts?.planetTwinProfile;
+
+  const category = dna?.primaryCategory || 'transport';
+  const capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+  const ratio = Math.round((dna?.primaryEmissionsRatio || 0.50) * 100);
+
+  let analysisSummary = `Your profile indicates transportation is a major contributor to emissions (contributing ${ratio}% of your footprint).`;
+  let recommendedAction = 'Reduce weekly vehicle usage and prioritize lower-emission alternatives.';
+  let expectedOutcome = 'Lower projected annual emissions and improved sustainability score.';
+
+  if (category === 'food') {
+    analysisSummary = `Your profile indicates food and dietary choices are a major contributor to emissions (contributing ${ratio}% of your footprint).`;
+    recommendedAction = 'Transition to a plant-forward diet and reduce beef/meat consumption frequency.';
+    expectedOutcome = 'Reduced daily food intensity and improved dietary health index.';
+  } else if (category === 'energy') {
+    analysisSummary = `Your profile indicates home energy consumption and utilities are a major contributor to emissions (contributing ${ratio}% of your footprint).`;
+    recommendedAction = 'Improve residential energy usage, optimize heating/cooling, and use energy-efficient appliances.';
+    expectedOutcome = 'Lower utility footprint and optimized home health score.';
+  } else if (category === 'shopping') {
+    analysisSummary = `Your profile indicates consumer product acquisitions are a major contributor to emissions (contributing ${ratio}% of your footprint).`;
+    recommendedAction = 'Select sustainable, circular products and reduce single-use goods purchases.';
+    expectedOutcome = 'Lower product lifecycle footprint and minimized waste.';
+  }
+
+  // Override with top candidate if present
+  const candidates = optimization?.candidates || [];
+  if (candidates.length > 0) {
+    const topOpportunity = candidates[0];
+    recommendedAction = `${topOpportunity.title}: ${topOpportunity.description}`;
+    expectedOutcome = `Achieve an estimated savings of ${topOpportunity.estimatedSavingsKg} kg CO₂e through optimized behavioral changes.`;
+  }
+
+  const offlineText = `- **Recommendation**: ${recommendedAction}
+- **Reasoning**: ${analysisSummary}
+- **Expected impact**: ${expectedOutcome}
+- **Next step**: Set up transport or energy limits in your cockpit cockpit actions and track changes daily.`;
+
+  // Write text chunk to response
+  res.write(`data: ${JSON.stringify({ text: offlineText })}\n\n`);
+
+  // Build evidence blocks
+  const evidence = contexts ? CoachContextBuilder.buildEvidence(
+    contexts.behaviorProfile,
+    contexts.forecastProfile,
+    contexts.optimizationPlan,
+    contexts.carbonDNAProfile,
+    contexts.planetTwinProfile
+  ) : [];
+
+  res.write(`data: ${JSON.stringify({
+    text: '',
+    done: true,
+    usageMetrics: {
+      provider: 'local',
+      model: 'offline',
+      promptTokens: 0,
+      completionTokens: 0,
+      estimatedCostUsd: 0,
+      latencyMs: 0
+    },
+    evidence
+  })}\n\n`);
+  res.end();
 }
 
 /**
@@ -39,6 +111,13 @@ router.post('/chat',
   async (req, res) => {
     const startTime = Date.now();
     const userId = req.user?.id || 'test-user-id';
+    const contexts = getUserContextProfiles(userId);
+
+    // Setup SSE response headers immediately
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders();
 
     try {
       const { message, conversationHistory = [] } = req.body as {
@@ -47,12 +126,20 @@ router.post('/chat',
       };
 
       if (!message) {
-        return res.status(400).json({ data: null, error: 'Message is required' });
+        res.write(`data: ${JSON.stringify({ error: 'Message is required' })}\n\n`);
+        res.end();
+        return;
+      }
+
+      // Check if API key is missing or mock placeholder
+      if (!isApiKeyConfigured()) {
+        console.log('[CoachRoute] Gemini API key not configured. Fallback to Offline Mode.');
+        await streamOfflineMode(res, contexts);
+        return;
       }
 
       // 1. Fetch user profile and engine outputs
       const user = getUserProfile(userId);
-      const contexts = getUserContextProfiles(userId);
 
       // 2. Build the system instruction, dynamic context, and evidence tracing lists
       const { systemInstruction, contextText, evidence } = CoachPromptBuilder.buildPrompt(
@@ -73,20 +160,21 @@ router.post('/chat',
       // 4. Construct final prompt
       const prompt = `System Instruction:\n${systemInstruction}\n\nContext:\n${contextText}\n\nHistory:\n${historyText}\n\nUser: ${message}\nTERRA:`;
 
-      const provider = providerRegistry.get();
-
-      // Configure SSE response headers
-      res.setHeader('Content-Type', 'text/event-stream');
-      res.setHeader('Cache-Control', 'no-cache');
-      res.setHeader('Connection', 'keep-alive');
-      res.flushHeaders();
+      let provider;
+      try {
+        provider = providerRegistry.get();
+      } catch (err) {
+        console.error('[CoachRoute] Provider registry lookup failed:', err);
+        await streamOfflineMode(res, contexts);
+        return;
+      }
 
       if (provider.generateTextStream) {
         const streamResult = await provider.generateTextStream(prompt);
 
         if (!streamResult.success) {
-          res.write(`data: ${JSON.stringify({ error: streamResult.error.message })}\n\n`);
-          res.end();
+          console.error('[CoachRoute] generateTextStream failed:', streamResult.error.message);
+          await streamOfflineMode(res, contexts);
           return;
         }
 
@@ -107,7 +195,7 @@ router.post('/chat',
 
         const usageMetrics = CostTracker.calculateMetrics(
           provider.name,
-          'gemini-1.5-flash',
+          'gemini-3.1-flash-lite',
           promptTokens,
           completionTokens,
           latencyMs
@@ -119,8 +207,8 @@ router.post('/chat',
         // Fallback standard response for non-streaming providers
         const result = await provider.generateText(prompt);
         if (!result.success) {
-          res.write(`data: ${JSON.stringify({ error: result.error.message })}\n\n`);
-          res.end();
+          console.error('[CoachRoute] generateText failed:', result.error.message);
+          await streamOfflineMode(res, contexts);
           return;
         }
         
@@ -130,9 +218,15 @@ router.post('/chat',
         res.end();
       }
     } catch (err: any) {
-      console.error('[CoachRoute] Chat error:', err);
-      res.write(`data: ${JSON.stringify({ error: 'TERRA is temporarily overloaded. Please try again.' })}\n\n`);
-      res.end();
+      console.error('[CoachRoute] Unexpected runtime error in chat, falling back to Offline Mode:', err);
+      try {
+        await streamOfflineMode(res, contexts);
+      } catch (innerErr) {
+        console.error('[CoachRoute] Double fault inside offline mode fallback:', innerErr);
+        if (!res.writableEnded) {
+          res.end();
+        }
+      }
     }
   }
 );

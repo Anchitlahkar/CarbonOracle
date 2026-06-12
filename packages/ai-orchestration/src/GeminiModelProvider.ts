@@ -37,7 +37,7 @@ export class GeminiModelProvider implements ModelProvider {
     options?: AIModelOptions
   ): Promise<Result<{ text: string; usageMetrics: AIUsageMetrics }>> {
     const startTime = Date.now();
-    const modelName = 'gemini-1.5-flash';
+    const modelName = 'gemini-3.1-flash-lite';
     const model = this.getModel(modelName, options);
 
     try {
@@ -72,7 +72,7 @@ export class GeminiModelProvider implements ModelProvider {
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>> {
     const startTime = Date.now();
-    const modelName = 'gemini-1.5-flash';
+    const modelName = 'gemini-3.1-flash-lite';
     const jsonOptions = { ...options, responseMimeType: 'application/json' };
     const model = this.getModel(modelName, jsonOptions);
 
@@ -115,7 +115,7 @@ export class GeminiModelProvider implements ModelProvider {
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>> {
     const startTime = Date.now();
-    const modelName = 'gemini-1.5-flash';
+    const modelName = 'gemini-3.1-flash-lite';
     const model = this.getModel(modelName, options);
 
     try {
@@ -166,7 +166,7 @@ export class GeminiModelProvider implements ModelProvider {
     prompt: string,
     options?: AIModelOptions
   ): Promise<Result<{ stream: AsyncIterable<any>; countTokens: (text: string) => Promise<number> }>> {
-    const modelName = 'gemini-1.5-flash';
+    const modelName = 'gemini-3.1-flash-lite';
     const model = this.getModel(modelName, options);
 
     try {
