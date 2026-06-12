@@ -78,15 +78,15 @@ export const Dashboard: React.FC = () => {
     return (
       <div className="max-w-md mx-auto text-center py-12 space-y-4">
         <ShieldAlert size={40} className="mx-auto text-accent-amber" />
-        <h3 className="text-xs font-bold font-display uppercase tracking-wider text-text-primary">TELEMETRY OFFLINE</h3>
+        <h3 className="text-xs font-bold font-display uppercase tracking-wider text-text-primary">CONNECTION OFFLINE</h3>
         <p className="text-[11px] text-text-muted">
-          Your environmental intelligence indices have not been synthesized. Initialize the engines to retrieve profile parameters.
+          Your environmental intelligence indices have not been synthesized. Sync context parameters to retrieve dashboard data.
         </p>
         <button
           onClick={fetchContext}
           className="px-3 py-1.5 rounded bg-accent-green text-bg-primary text-xs font-mono font-bold uppercase"
         >
-          Initialize Telemetry Engine
+          Sync Dashboard Context
         </button>
       </div>
     );
@@ -118,19 +118,96 @@ export const Dashboard: React.FC = () => {
     { label: 'Shopping', ratio: behaviorProfile.featureVector.shoppingRatio, color: 'bg-accent-red' }
   ].sort((a, b) => b.ratio - a.ratio);
 
+  const getCategoryRatioText = (category: string) => {
+    if (category === 'transport') return `${Math.round(behaviorProfile.featureVector.transportRatio * 100)}%`;
+    if (category === 'food') return `${Math.round(behaviorProfile.featureVector.foodRatio * 100)}%`;
+    if (category === 'energy') return `${Math.round(behaviorProfile.featureVector.energyRatio * 100)}%`;
+    if (category === 'shopping') return `${Math.round(behaviorProfile.featureVector.shoppingRatio * 100)}%`;
+    return 'a significant portion';
+  };
+
   return (
     <div className="max-w-7xl mx-auto space-y-2.5 font-body">
       {/* 1. Cockpit Header */}
       <SectionHeader 
-        title="MISSION CONTROL" 
-        description="Executive intelligence cockpit synthesizing real-time footprint, forecast divergence, and behavioral DNA metrics."
+        title="CARBONSENSE COCKPIT" 
+        description="Carbon intelligence cockpit powered by TERRA."
         actions={
           <div className="flex items-center space-x-2 text-[7.5px] font-mono text-text-muted/60">
             <span className="w-1 h-1 rounded-full bg-accent-green animate-pulse" />
-            <span className="uppercase tracking-[0.2em] font-bold">Telemetry: Active</span>
+            <span className="uppercase tracking-[0.2em] font-bold">TERRA Engine Active</span>
           </div>
         }
       />
+
+      {/* TERRA EXECUTIVE BRIEF & ACTION CENTER */}
+      <div className="bg-bg-surface border border-accent-green/20 rounded-sm p-4 md:p-5 shadow-[0_0_50px_-12px_rgba(0,255,135,0.1)] relative overflow-hidden">
+        {/* Decorative subtle gradient edge */}
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-accent-green to-accent-blue" />
+        
+        <div className="flex items-center justify-between border-b border-white/[0.04] pb-2 mb-4">
+          <div className="flex items-center space-x-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse" />
+            <h2 className="text-[10px] font-mono font-black uppercase tracking-[0.25em] text-accent-green">
+              TERRA EXECUTIVE BRIEF
+            </h2>
+          </div>
+          <span className="text-[7.5px] font-mono text-text-muted/40 uppercase font-bold tracking-widest">
+            MCDA RANKING STATUS
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 text-left">
+          {/* Column 1: Narrative Executive Brief (2/3 size) */}
+          <div className="lg:col-span-8 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2">
+              <h3 className="text-[13px] md:text-sm font-bold text-text-primary uppercase tracking-wide">
+                Good Evening, {username}.
+              </h3>
+              <p className="text-[12px] text-text-muted leading-relaxed font-medium">
+                Your projected annual footprint is <strong className="text-text-primary">{(planetTwinProfile.currentWorld.trajectory.annualEmissionsKg / 1000).toFixed(1)} t CO₂e</strong>, with <strong className="text-text-primary">{topCandidate?.category || 'transport'}</strong> contributing <strong className="text-text-primary">{getCategoryRatioText(topCandidate?.category)}</strong>. TERRA's highest-impact recommendation is to <strong className="text-accent-green">{topCandidate?.title.toLowerCase()}</strong>, which is projected to reduce your footprint by <strong className="text-accent-green">-{Math.round((topCandidate?.estimatedSavingsKg || 23.9) * 12)} kg CO₂e/year</strong> (Confidence: <strong className="text-accent-blue">{topCandidate?.score || 91}%</strong>).
+              </p>
+            </div>
+            
+            {/* Context & Sources Evidence base */}
+            <div className="text-[7.5px] font-mono text-text-muted/30 uppercase tracking-wider border-t border-white/[0.02] pt-2 flex flex-wrap gap-x-4">
+              <span>MCDA Rank: #1 of {optimizationPlan.candidates.length} Interventions</span>
+              <span>Evidence: Behavior Vector (Mean: {behaviorProfile.featureVector.dailyEmissionsMean.toFixed(1)} kg/d)</span>
+              <span>DNA Profile: {carbonDNAProfile.archetype}</span>
+            </div>
+          </div>
+
+          {/* Column 2: Inaction Consequences & Advisor CTA (1/3 size) */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-4 lg:space-y-0 lg:border-l lg:border-white/[0.04] lg:pl-6">
+            <div className="space-y-2">
+              <h4 className="text-[8.5px] font-mono font-black uppercase tracking-wider text-text-muted/60">
+                If you do nothing
+              </h4>
+              <div className="space-y-1.5 text-xs font-mono">
+                <div className="flex justify-between text-[10.5px]">
+                  <span className="text-text-muted/50 uppercase">Emissions Drift:</span>
+                  <span className="text-accent-red font-bold">
+                    {(planetTwinProfile.currentWorld.trajectory.annualEmissionsKg / 1000).toFixed(1)} t CO₂e
+                  </span>
+                </div>
+                <div className="flex justify-between text-[10.5px]">
+                  <span className="text-text-muted/50 uppercase">Opportunity Lost:</span>
+                  <span className="text-accent-amber font-bold">
+                    -{Math.round((topCandidate?.estimatedSavingsKg || 23.9) * 12)} kg CO₂e
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => navigate('/coach')}
+              className="w-full py-2 bg-accent-green hover:bg-accent-green/90 text-bg-primary font-mono font-black text-[9px] uppercase transition-all rounded-sm tracking-[0.2em] shadow-[0_0_15px_-4px_rgba(0,255,135,0.4)] flex items-center justify-center space-x-1.5 cursor-pointer"
+            >
+              <span>Consult TERRA Advisor</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* 2. Top Layer: Executive Briefing & Mission-Critical Stats */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5">
@@ -186,7 +263,7 @@ export const Dashboard: React.FC = () => {
         <Panel level={2} compact className="flex flex-col justify-between min-h-[160px]">
           <div className="space-y-2">
             <div className="flex items-center justify-between border-b border-white/[0.04] pb-1.5">
-              <span className="text-[8px] font-bold text-text-muted/60 font-mono tracking-[0.2em] uppercase">Telemetry Ratios</span>
+              <span className="text-[8px] font-bold text-text-muted/60 font-mono tracking-[0.2em] uppercase">Carbon Contribution Ratios</span>
               <Sliders className="w-2.5 h-2.5 text-text-muted/40" />
             </div>
             
@@ -360,12 +437,12 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* 5. Telemetry Logs Metadata (System Telemetry Panel) */}
+      {/* 5. Engine Status (System Metadata Panel) */}
       <Panel level={4} compact className="flex items-center justify-between text-[7px] font-mono text-text-muted/40 py-1.5 px-3 uppercase tracking-[0.1em]">
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-1.5">
             <ShieldCheck className="w-2.5 h-2.5 text-accent-green opacity-60" />
-            <span className="font-black text-text-primary/60 tracking-[0.2em]">Audit: Pass</span>
+            <span className="font-black text-text-primary/60 tracking-[0.2em]">Engine Status: Active</span>
           </div>
           <div className="hidden sm:flex items-center space-x-3 border-l border-white/[0.03] pl-3">
             <span>Confidence: <strong className="text-accent-green/60">94%</strong></span>
@@ -374,7 +451,7 @@ export const Dashboard: React.FC = () => {
           </div>
         </div>
         <div className="tracking-[0.3em] font-black opacity-30 text-[6.5px]">
-          TERMINAL_SYNX_COCKPIT_V1.0
+          CARBONSENSE_COCKPIT_V1.0
         </div>
       </Panel>
     </div>

@@ -59,10 +59,15 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="space-y-4">
           {/* Logo & Ctrl+K trigger button */}
           <div className="flex items-center justify-between px-2 py-2 border-b border-white/[0.03] mb-1">
-            <Link to="/dashboard" className="flex items-center space-x-2 select-none group">
-              <Activity className="text-accent-green group-hover:rotate-12 transition-transform" size={16} />
-              <span className="text-[10px] font-display font-black tracking-[0.25em] text-text-primary">
-                CARBONSENSE
+            <Link to="/dashboard" className="flex flex-col select-none group">
+              <div className="flex items-center space-x-2">
+                <Activity className="text-accent-green group-hover:rotate-12 transition-transform" size={13} />
+                <span className="text-[10px] font-display font-black tracking-[0.25em] text-text-primary">
+                  CARBONSENSE
+                </span>
+              </div>
+              <span className="text-[7px] font-mono text-text-muted/40 uppercase tracking-[0.05em] pl-[21px] mt-0.5">
+                Powered by TERRA
               </span>
             </Link>
             
@@ -83,12 +88,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             {/* Section 1: Dashboard */}
             <div className="space-y-1">
               <div className="text-[7.5px] tracking-[0.25em] font-mono text-text-muted/30 font-bold px-2.5 uppercase">
-                Observation
+                Cockpit
               </div>
               <SidebarItem
                 to="/dashboard"
                 icon={<LayoutDashboard />}
-                label="Mission Control"
+                label="Intelligence Cockpit"
                 active={location.pathname === '/dashboard'}
               />
             </div>
@@ -101,7 +106,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               <SidebarItem
                 to="/twin"
                 icon={<Globe />}
-                label="Planet Twin"
+                label="Planetary Dynamics"
                 active={location.pathname === '/twin'}
               />
             </div>
@@ -115,7 +120,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <SidebarItem
                   to="/dna"
                   icon={<Fingerprint />}
-                  label="Carbon DNA"
+                  label="DNA Intelligence"
                   active={location.pathname === '/dna'}
                 />
                 <SidebarItem
@@ -148,7 +153,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <SidebarItem
                   to="/coach"
                   icon={<MessageSquare />}
-                  label="AI Coach"
+                  label="TERRA Advisor"
                   active={location.pathname === '/coach'}
                 />
               </div>
@@ -161,11 +166,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           {/* System Status */}
           <div className="px-2.5 py-2 rounded-sm bg-white/[0.01] border border-white/[0.03] space-y-1.5">
             <div className="flex items-center justify-between text-[7px] font-mono uppercase tracking-widest text-text-muted/40">
-              <span>System Status</span>
-              <span className="text-accent-green animate-pulse">Nominal</span>
+              <span>TERRA Engine</span>
+              <span className="text-accent-green animate-pulse">Active</span>
             </div>
             <div className="h-0.5 w-full bg-white/[0.03] overflow-hidden rounded-full">
-              <div className="h-full bg-accent-green/40 w-[92%]" />
+              <div className="h-full bg-accent-green/40 w-[100%]" />
             </div>
           </div>
 
@@ -182,7 +187,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     {user.username || 'Citizen'}
                   </p>
                   <p className="text-[7.5px] text-text-muted/50 truncate font-mono uppercase tracking-[0.1em]">
-                    {user.country ? `Node: ${user.country}` : 'Global Node'}
+                    {user.country ? `Region: ${user.country}` : 'Global Region'}
                   </p>
                 </div>
               </Link>
@@ -192,7 +197,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 className="w-full flex items-center space-x-2 px-2.5 py-1.5 rounded-sm text-accent-red/80 hover:text-accent-red hover:bg-accent-red/5 border border-transparent hover:border-accent-red/10 transition-all text-[8px] font-mono font-bold uppercase tracking-[0.15em]"
               >
                 <LogOut size={10} />
-                <span>Termination</span>
+                <span>Sign Out</span>
               </button>
             </div>
           )}

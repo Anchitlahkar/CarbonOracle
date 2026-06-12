@@ -230,7 +230,7 @@ export const Scanner: React.FC = () => {
           <div className="flex items-center space-x-1.5 pl-1">
             <CheckCircle size={12} className="text-accent-green opacity-60" />
             <span className="text-[8px] font-bold text-text-muted/60 uppercase tracking-[0.2em] font-mono">
-              Extraction Telemetry
+              Extraction Insights
             </span>
           </div>
 
@@ -307,7 +307,7 @@ export const Scanner: React.FC = () => {
           ) : (
             <Panel level={2} className="p-12 text-center text-[8.5px] text-text-muted/20 font-mono min-h-[200px] flex flex-col items-center justify-center space-y-3 uppercase tracking-[0.25em] bg-bg-surface/30 border-white/[0.02] shadow-inner">
               <ScanLine size={24} className="text-text-muted/10" />
-              <span>Pending Telemetry Acquisition</span>
+              <span>Pending Data Input</span>
             </Panel>
           )}
         </div>

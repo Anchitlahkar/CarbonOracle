@@ -7,7 +7,6 @@ import {
 import AIOrb from '../components/3d/AIOrb';
 import { 
   Send, 
-  Terminal, 
   CheckCircle,
   HelpCircle,
   Cpu,
@@ -39,7 +38,7 @@ export const Coach: React.FC = () => {
     {
       id: 'welcome',
       role: 'model',
-      content: 'TERRA AI expert consultant online. Telemetry indexes active. How can I assist your lifestyle optimization modeling today?'
+      content: 'Hello. I am TERRA, your carbon intelligence assistant. I have synthesized your behavior logs, forecasts, and Carbon DNA to help you build an action roadmap. How can I guide you today?'
     }
   ]);
   const [input, setInput] = useState('');
@@ -124,21 +123,20 @@ export const Coach: React.FC = () => {
   };
 
   const promptTriggers = [
-    'Analyze my carbon DNA dimensions',
-    'Simulate 90-day transport optimization potential',
-    'Identify highest structural habit resistance score'
+    'How do I optimize my transport footprint?',
+    'What is the biggest roadblock in my current energy consumption?',
+    'How does my Carbon DNA dictate my footprint?'
   ];
 
   return (
     <div className="max-w-7xl mx-auto space-y-2.5 font-body">
       {/* Page Header */}
       <SectionHeader
-        title="TERRA INTELLIGENCE COACH"
-        description="Expert AI advisor dashboard simulating and optimizing carbon pathways."
+        title="TERRA ADVISOR"
+        description="Expert carbon intelligence advisor powered by TERRA."
         actions={
           <div className="flex items-center space-x-2 text-[7.5px] font-mono text-text-muted/60">
-            <Terminal size={11} className="text-accent-green opacity-60 animate-pulse" />
-            <span className="uppercase tracking-[0.2em] font-bold">Inference_Engine: ACTIVE</span>
+            <span className="uppercase tracking-[0.2em] font-bold">TERRA Engine: Active</span>
           </div>
         }
       />
@@ -164,7 +162,7 @@ export const Coach: React.FC = () => {
                     {/* Speaker Header */}
                     <div className="flex items-center space-x-1.5 border-b border-white/[0.03] pb-1 font-mono text-[7px] text-text-muted/40 uppercase tracking-[0.15em] font-bold">
                       <Cpu size={9} className={isUser ? 'text-accent-blue/60' : 'text-accent-green/60'} />
-                      <span>{isUser ? 'RESEARCHER_NODE' : 'TERRA_CORE_AGENT'}</span>
+                      <span>{isUser ? 'YOU' : 'TERRA'}</span>
                     </div>
 
                     <p className="font-medium">{msg.content}</p>
@@ -207,7 +205,7 @@ export const Coach: React.FC = () => {
                 <div className="max-w-[85%] bg-white/[0.01] border border-white/[0.03] rounded-sm p-2 text-[9.5px] text-text-muted/80 leading-relaxed space-y-1.5 mr-12">
                   <div className="flex items-center space-x-1.5 border-b border-white/[0.03] pb-1 font-mono text-[7px] text-text-muted/40 uppercase tracking-[0.15em] font-bold">
                     <Cpu size={9} className="text-accent-green/60 animate-pulse" />
-                    <span>TERRA_CORE (STREAMING)</span>
+                    <span>TERRA (STREAMING)</span>
                   </div>
                   <p className="font-medium">{streamingText}</p>
                 </div>
@@ -220,7 +218,7 @@ export const Coach: React.FC = () => {
           {/* Quick prompt suggestions */}
           {messages.length === 1 && !isThinking && (
             <div className="p-1.5 border-t border-white/[0.04] flex flex-col space-y-1 bg-white/[0.01]">
-              <span className="text-[6.5px] font-mono text-text-muted/30 uppercase px-2 tracking-[0.2em] font-bold">Consultation_Triggers:</span>
+              <span className="text-[6.5px] font-mono text-text-muted/30 uppercase px-2 tracking-[0.2em] font-bold">Suggested Inquiries:</span>
               <div className="flex flex-wrap gap-1 p-1">
                 {promptTriggers.map((trig, idx) => (
                   <button

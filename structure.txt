@@ -1,0 +1,348 @@
+PromptWars Project Directory Structure
+======================================
+
+.
+├── .agents
+│   └── skills
+│       ├── canvas-design
+│       │   ├── canvas-fonts
+│       │   │   ├── ArsenalSC-OFL.txt
+│       │   │   ├── ArsenalSC-Regular.ttf
+│       │   │   ├── BigShoulders-Bold.ttf
+│       │   │   ├── BigShoulders-OFL.txt
+│       │   │   ├── BigShoulders-Regular.ttf
+│       │   │   ├── Boldonse-OFL.txt
+│       │   │   ├── Boldonse-Regular.ttf
+│       │   │   ├── BricolageGrotesque-Bold.ttf
+│       │   │   ├── BricolageGrotesque-OFL.txt
+│       │   │   ├── BricolageGrotesque-Regular.ttf
+│       │   │   ├── CrimsonPro-Bold.ttf
+│       │   │   ├── CrimsonPro-Italic.ttf
+│       │   │   ├── CrimsonPro-OFL.txt
+│       │   │   ├── CrimsonPro-Regular.ttf
+│       │   │   ├── DMMono-OFL.txt
+│       │   │   ├── DMMono-Regular.ttf
+│       │   │   ├── EricaOne-OFL.txt
+│       │   │   ├── EricaOne-Regular.ttf
+│       │   │   ├── GeistMono-Bold.ttf
+│       │   │   ├── GeistMono-OFL.txt
+│       │   │   ├── GeistMono-Regular.ttf
+│       │   │   ├── Gloock-OFL.txt
+│       │   │   ├── Gloock-Regular.ttf
+│       │   │   ├── IBMPlexMono-Bold.ttf
+│       │   │   ├── IBMPlexMono-OFL.txt
+│       │   │   ├── IBMPlexMono-Regular.ttf
+│       │   │   ├── IBMPlexSerif-Bold.ttf
+│       │   │   ├── IBMPlexSerif-BoldItalic.ttf
+│       │   │   ├── IBMPlexSerif-Italic.ttf
+│       │   │   ├── IBMPlexSerif-Regular.ttf
+│       │   │   ├── InstrumentSans-Bold.ttf
+│       │   │   ├── InstrumentSans-BoldItalic.ttf
+│       │   │   ├── InstrumentSans-Italic.ttf
+│       │   │   ├── InstrumentSans-OFL.txt
+│       │   │   ├── InstrumentSans-Regular.ttf
+│       │   │   ├── InstrumentSerif-Italic.ttf
+│       │   │   ├── InstrumentSerif-Regular.ttf
+│       │   │   ├── Italiana-OFL.txt
+│       │   │   ├── Italiana-Regular.ttf
+│       │   │   ├── JetBrainsMono-Bold.ttf
+│       │   │   ├── JetBrainsMono-OFL.txt
+│       │   │   ├── JetBrainsMono-Regular.ttf
+│       │   │   ├── Jura-Light.ttf
+│       │   │   ├── Jura-Medium.ttf
+│       │   │   ├── Jura-OFL.txt
+│       │   │   ├── LibreBaskerville-OFL.txt
+│       │   │   ├── LibreBaskerville-Regular.ttf
+│       │   │   ├── Lora-Bold.ttf
+│       │   │   ├── Lora-BoldItalic.ttf
+│       │   │   ├── Lora-Italic.ttf
+│       │   │   ├── Lora-OFL.txt
+│       │   │   ├── Lora-Regular.ttf
+│       │   │   ├── NationalPark-Bold.ttf
+│       │   │   ├── NationalPark-OFL.txt
+│       │   │   ├── NationalPark-Regular.ttf
+│       │   │   ├── NothingYouCouldDo-OFL.txt
+│       │   │   ├── NothingYouCouldDo-Regular.ttf
+│       │   │   ├── Outfit-Bold.ttf
+│       │   │   ├── Outfit-OFL.txt
+│       │   │   ├── Outfit-Regular.ttf
+│       │   │   ├── PixelifySans-Medium.ttf
+│       │   │   ├── PixelifySans-OFL.txt
+│       │   │   ├── PoiretOne-OFL.txt
+│       │   │   ├── PoiretOne-Regular.ttf
+│       │   │   ├── RedHatMono-Bold.ttf
+│       │   │   ├── RedHatMono-OFL.txt
+│       │   │   ├── RedHatMono-Regular.ttf
+│       │   │   ├── Silkscreen-OFL.txt
+│       │   │   ├── Silkscreen-Regular.ttf
+│       │   │   ├── SmoochSans-Medium.ttf
+│       │   │   ├── SmoochSans-OFL.txt
+│       │   │   ├── Tektur-Medium.ttf
+│       │   │   ├── Tektur-OFL.txt
+│       │   │   ├── Tektur-Regular.ttf
+│       │   │   ├── WorkSans-Bold.ttf
+│       │   │   ├── WorkSans-BoldItalic.ttf
+│       │   │   ├── WorkSans-Italic.ttf
+│       │   │   ├── WorkSans-OFL.txt
+│       │   │   ├── WorkSans-Regular.ttf
+│       │   │   ├── YoungSerif-OFL.txt
+│       │   │   └── YoungSerif-Regular.ttf
+│       │   ├── LICENSE.txt
+│       │   └── SKILL.md
+│       ├── carbonsense-architect
+│       │   └── SKILL.md
+│       ├── frontend-design
+│       │   ├── LICENSE.txt
+│       │   └── SKILL.md
+│       ├── gemini-integrator
+│       │   └── SKILL.md
+│       ├── improve-codebase-architecture
+│       │   ├── DEEPENING.md
+│       │   ├── HTML-REPORT.md
+│       │   ├── INTERFACE-DESIGN.md
+│       │   ├── LANGUAGE.md
+│       │   └── SKILL.md
+│       ├── judging-hardener
+│       │   └── SKILL.md
+│       ├── react-threefiber
+│       │   └── SKILL.md
+│       └── web-design-guidelines
+│           └── SKILL.md
+├── agents
+│   ├── CARBONSENSE_BUILD_BIBLE.md
+│   ├── features.md
+│   ├── PHASE_2_EXECUTION_GUARDRAILS.md
+│   ├── PHASE_3_BEHAVIOR_ENGINE_REQUIREMENTS.md
+│   └── prompt.md
+├── backend
+│   ├── src
+│   │   ├── middleware
+│   │   │   ├── auth.ts
+│   │   │   └── rateLimit.ts
+│   │   ├── routes
+│   │   │   ├── coach.ts
+│   │   │   └── scanner.ts
+│   │   ├── services
+│   │   │   ├── CoachContextBuilder.ts
+│   │   │   ├── CoachPromptBuilder.ts
+│   │   │   ├── geminiService.ts
+│   │   │   ├── profileService.ts
+│   │   │   └── ReceiptValidationService.ts
+│   │   └── index.ts
+│   ├── .env.example
+│   ├── package.json
+│   └── tsconfig.json
+├── docs
+│   ├── ARCHITECTURE.md
+│   ├── ENGINE_OVERVIEW.md
+│   ├── RESEARCH.md
+│   ├── RFC-001-CarbonScience.md
+│   ├── RFC-002-BehaviorEngine.md
+│   ├── RFC-003-ForecastEngine.md
+│   ├── RFC-004-OptimizationEngine.md
+│   ├── RFC-005-CarbonDNA.md
+│   ├── RFC-006-ReceiptIntelligence.md
+│   ├── RFC-007-PlanetTwin.md
+│   └── ROADMAP.md
+├── frontend
+│   ├── src
+│   │   ├── components
+│   │   │   ├── 3d
+│   │   │   │   ├── AIOrb.tsx
+│   │   │   │   └── PlanetTwinScene.tsx
+│   │   │   ├── ui
+│   │   │   │   ├── BlurText.tsx
+│   │   │   │   ├── DataTable.tsx
+│   │   │   │   ├── DNAProgress.tsx
+│   │   │   │   ├── FadeIn.tsx
+│   │   │   │   ├── ForecastStrip.tsx
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── IntelligenceBrief.tsx
+│   │   │   │   ├── MetricCard.tsx
+│   │   │   │   ├── Panel.tsx
+│   │   │   │   ├── PanelError.tsx
+│   │   │   │   ├── PremiumLoader.tsx
+│   │   │   │   ├── SectionHeader.tsx
+│   │   │   │   ├── Skeleton.tsx
+│   │   │   │   ├── StatusPill.tsx
+│   │   │   │   └── TrendIndicator.tsx
+│   │   │   ├── CommandPalette.tsx
+│   │   │   ├── Layout.tsx
+│   │   │   └── ProtectedRoute.tsx
+│   │   ├── lib
+│   │   │   ├── api.ts
+│   │   │   └── supabase.ts
+│   │   ├── pages
+│   │   │   ├── Auth.tsx
+│   │   │   ├── Coach.tsx
+│   │   │   ├── Community.tsx
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── DNA.tsx
+│   │   │   ├── Forecasts.tsx
+│   │   │   ├── Landing.tsx
+│   │   │   ├── Optimization.tsx
+│   │   │   ├── PlanetTwin.tsx
+│   │   │   ├── Profile.tsx
+│   │   │   └── Scanner.tsx
+│   │   ├── store
+│   │   │   └── carbonStore.ts
+│   │   ├── App.tsx
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   └── vite-env.d.ts
+│   ├── .env.example
+│   ├── index.html
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.ts
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── packages
+│   ├── ai-orchestration
+│   │   ├── src
+│   │   │   ├── CostTracker.ts
+│   │   │   ├── GeminiModelProvider.ts
+│   │   │   ├── index.ts
+│   │   │   ├── PromptManager.ts
+│   │   │   └── ResponseValidator.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── behavior-intelligence-engine
+│   │   ├── src
+│   │   │   ├── BehaviorAggregator.ts
+│   │   │   ├── BehaviorClassifier.ts
+│   │   │   ├── index.ts
+│   │   │   ├── PatternDetector.ts
+│   │   │   ├── RiskScorer.ts
+│   │   │   └── TrendAnalyzer.ts
+│   │   ├── tests
+│   │   │   └── index.test.ts
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   └── tsconfig.json
+│   ├── carbon-dna-engine
+│   │   ├── src
+│   │   │   ├── ArchetypeClassifier.ts
+│   │   │   ├── ConsistencyAnalyzer.ts
+│   │   │   ├── DNAAggregator.ts
+│   │   │   ├── ForecastReliabilityAnalyzer.ts
+│   │   │   ├── index.ts
+│   │   │   ├── OptimizationPotentialAnalyzer.ts
+│   │   │   └── ResponsivenessAnalyzer.ts
+│   │   ├── tests
+│   │   │   └── index.test.ts
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   └── tsconfig.json
+│   ├── carbon-science-engine
+│   │   ├── src
+│   │   │   └── index.ts
+│   │   ├── tests
+│   │   │   └── index.test.ts
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   └── tsconfig.json
+│   ├── core
+│   │   ├── src
+│   │   │   └── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── forecast-engine
+│   │   ├── src
+│   │   │   ├── BaselineForecaster.ts
+│   │   │   ├── CounterfactualForecaster.ts
+│   │   │   ├── ForecastAggregator.ts
+│   │   │   ├── index.ts
+│   │   │   ├── MomentumForecaster.ts
+│   │   │   ├── RiskDriverAnalyzer.ts
+│   │   │   ├── ScenarioForecaster.ts
+│   │   │   └── TrendForecaster.ts
+│   │   ├── tests
+│   │   │   └── index.test.ts
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   └── tsconfig.json
+│   ├── knowledge-base
+│   │   ├── src
+│   │   │   ├── emission-factors
+│   │   │   │   ├── energy.json
+│   │   │   │   ├── food.json
+│   │   │   │   ├── shopping.json
+│   │   │   │   └── transport.json
+│   │   │   ├── methodologies
+│   │   │   │   └── CS-METHODOLOGY-V1.0.0.json
+│   │   │   ├── prompts
+│   │   │   │   ├── coach-context.md
+│   │   │   │   ├── coach-rules.md
+│   │   │   │   ├── coach-system.md
+│   │   │   │   └── receipt-analysis.md
+│   │   │   ├── behavior-thresholds.json
+│   │   │   ├── earth-equivalents.json
+│   │   │   ├── impact-factors.json
+│   │   │   ├── index.ts
+│   │   │   ├── interventions.json
+│   │   │   ├── planet-twin-config.json
+│   │   │   ├── references.json
+│   │   │   └── scenario-library.json
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── optimization-engine
+│   │   ├── src
+│   │   │   ├── ActionRanker.ts
+│   │   │   ├── BehaviorResistanceModel.ts
+│   │   │   ├── DifficultyEstimator.ts
+│   │   │   ├── index.ts
+│   │   │   ├── OptimizationAggregator.ts
+│   │   │   ├── OptimizationPlanner.ts
+│   │   │   └── ReductionEstimator.ts
+│   │   ├── tests
+│   │   │   └── index.test.ts
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   └── tsconfig.json
+│   ├── planet-twin-engine
+│   │   ├── src
+│   │   │   ├── EarthEquivalentCalculator.ts
+│   │   │   ├── ImpactAccumulator.ts
+│   │   │   ├── index.ts
+│   │   │   ├── NarrativeGenerator.ts
+│   │   │   ├── ScenarioWorldBuilder.ts
+│   │   │   ├── TrajectorySimulator.ts
+│   │   │   ├── TwinAggregator.ts
+│   │   │   └── WorldDivergenceAnalyzer.ts
+│   │   ├── tests
+│   │   │   └── index.test.ts
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   └── tsconfig.json
+│   ├── receipt-intelligence-engine
+│   │   ├── src
+│   │   │   └── index.ts
+│   │   ├── tests
+│   │   │   └── index.test.ts
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   └── tsconfig.json
+│   └── shared-types
+│       ├── src
+│       │   └── index.ts
+│       ├── package.json
+│       └── tsconfig.json
+├── research
+│   ├── datasets
+│   │   └── README.md
+│   ├── methodology
+│   │   └── README.md
+│   ├── papers
+│   │   └── README.md
+│   └── references
+│       └── README.md
+├── .gitignore
+├── design.md
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── README.md
+├── skills-lock.json
+├── skills.log
+└── working.md

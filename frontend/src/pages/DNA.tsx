@@ -53,10 +53,10 @@ export const DNA: React.FC = () => {
     return (
       <div className="max-w-md mx-auto text-center py-12 space-y-4">
         <ShieldAlert className="mx-auto text-accent-amber" size={40} />
-        <h3 className="text-xs font-bold font-display uppercase tracking-wider text-text-primary">NO PROFILE TELEMETRY</h3>
-        <p className="text-[11px] text-text-muted">A behavioral genome profile requires active synchronization.</p>
+        <h3 className="text-xs font-bold font-display uppercase tracking-wider text-text-primary">NO PROFILE DATA</h3>
+        <p className="text-[11px] text-text-muted">A behavioral carbon profile requires active synchronization.</p>
         <button onClick={fetchContext} className="px-3 py-1.5 rounded bg-accent-green text-bg-primary text-xs font-mono font-bold uppercase">
-          Reload Profile
+          Sync Profile
         </button>
       </div>
     );
@@ -68,12 +68,12 @@ export const DNA: React.FC = () => {
     <div className="max-w-7xl mx-auto space-y-2.5 font-body">
       {/* Page Header */}
       <SectionHeader
-        title="BEHAVIORAL DNA DOSSIER"
-        description="Machine learning classifications mapping behavioral markers and cognitive habits to consumption archetypes."
+        title="CARBON DNA REPORT"
+        description="AI analysis profiling behavioral markers, consumption habits, and optimization readiness."
         actions={
           <div className="flex items-center space-x-2 text-[7.5px] font-mono text-text-muted/60">
             <Fingerprint size={12} className="text-accent-blue/60" />
-            <span className="uppercase tracking-[0.2em] font-bold">DNA_ANALYSIS_V1.6_X</span>
+            <span className="uppercase tracking-[0.2em] font-bold">DNA Analysis</span>
           </div>
         }
       />
@@ -84,22 +84,22 @@ export const DNA: React.FC = () => {
         {/* Left dossier panel */}
         <div className="lg:col-span-8 space-y-2.5">
           
-          {/* Dossier Header panel */}
+          {/* Carbon DNA Report Header panel */}
           <Panel level={1} compact className="relative overflow-hidden p-3.5 space-y-2.5 bg-bg-surface/40 border-white/[0.04]">
             <div className="absolute right-0 top-0 bottom-0 w-1/4 bg-gradient-to-l from-white/[0.01] to-transparent pointer-events-none" />
             
             <div className="flex items-start justify-between">
               <div className="space-y-0.5">
-                <span className="text-[7.5px] font-mono text-text-muted/40 uppercase tracking-[0.25em] font-bold">// CLASSIFIED ARCHETYPE PROFILE</span>
+                <span className="text-[7.5px] font-mono text-text-muted/40 uppercase tracking-[0.25em] font-bold">// ARCHETYPE PROFILE</span>
                 <h2 className="text-lg font-black font-display text-text-primary tracking-[0.05em] uppercase">
                   {archetype.replace(/([A-Z])/g, ' $1').trim()}
                 </h2>
               </div>
-              <StatusPill label="ACTIVE DOSSIER" variant="blue" />
+              <StatusPill label="DNA REPORT" variant="blue" />
             </div>
 
             <div className="text-[11px] text-text-muted/90 leading-relaxed font-body font-medium">
-              Cognitive behavior patterns mapping systemic readiness, intensity indices, and resistance points. This dossier reflects dynamic response vectors to optimization interventions.
+              Cognitive behavior patterns mapping systemic readiness, intensity indices, and resistance points. This report reflects dynamic response vectors to optimization interventions.
             </div>
 
             {/* Matrix details */}
@@ -113,8 +113,8 @@ export const DNA: React.FC = () => {
                 <span className="text-accent-blue/80 font-black text-[10px] truncate">{evolution.direction.replace(/([A-Z])/g, ' $1').trim()}</span>
               </div>
               <div>
-                <span className="text-text-muted/30 block text-[6.5px] tracking-[0.2em] font-bold mb-0.5">Validation Audit</span>
-                <span className="text-accent-green/80 font-black text-[10px]">VERIFIED_PASS</span>
+                <span className="text-text-muted/30 block text-[6.5px] tracking-[0.2em] font-bold mb-0.5">Report Status</span>
+                <span className="text-accent-green/80 font-black text-[10px]">ACTIVE</span>
               </div>
             </div>
           </Panel>
@@ -124,7 +124,7 @@ export const DNA: React.FC = () => {
             <div className="flex items-center space-x-1.5 pl-1">
               <Brain size={12} className="text-text-muted/40" />
               <h4 className="text-[8px] font-bold text-text-muted/60 uppercase tracking-[0.2em] font-mono">
-                Behavioral Telemetry signals
+                Primary DNA Drivers
               </h4>
             </div>
 
@@ -178,7 +178,7 @@ export const DNA: React.FC = () => {
             </div>
           </Panel>
 
-          {/* Dossier Evolution & projected behavioral shifts */}
+          {/* Shift Potential & projected behavioral shifts */}
           <Panel level={2} compact className="space-y-2.5 p-3 bg-bg-surface/50 border-white/[0.04]">
             <div className="flex justify-between items-center border-b border-white/[0.04] pb-1.5">
               <h3 className="text-[8.5px] font-bold text-text-muted/80 uppercase tracking-[0.2em] font-mono">

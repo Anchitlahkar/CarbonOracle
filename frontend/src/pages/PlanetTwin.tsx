@@ -59,9 +59,9 @@ export const PlanetTwin: React.FC = () => {
       <div className="max-w-md mx-auto text-center py-12 space-y-4">
         <ShieldAlert className="mx-auto text-accent-amber animate-pulse" size={40} />
         <h3 className="text-xs font-bold font-display uppercase tracking-wider text-text-primary">PROFILE SYNC ERROR</h3>
-        <p className="text-[11px] text-text-muted">Planet Twin simulations require active profile telemetry.</p>
+        <p className="text-[11px] text-text-muted">Planet twin simulations require active profile context.</p>
         <button onClick={fetchContext} className="px-3 py-1.5 rounded bg-accent-green text-bg-primary text-xs font-mono font-bold uppercase">
-          Reinitialize Profile
+          Sync Profile
         </button>
       </div>
     );
@@ -102,12 +102,11 @@ export const PlanetTwin: React.FC = () => {
     <div className="max-w-7xl mx-auto space-y-2.5 font-body">
       {/* 1. Page Header */}
       <SectionHeader 
-        title="PLANET TWIN SIMULATION"
-        description="Physically-based simulation modeling atmospheric and biospheric feedback of carbon pathways."
+        title="PLANETARY DYNAMICS"
+        description="Empirical projection modeling carbon reduction pathways to support operational decisions."
         actions={
           <div className="flex items-center space-x-2 text-[7.5px] font-mono text-text-muted/60">
-            <span className="uppercase tracking-[0.2em] font-bold">Confidence: <strong className="text-accent-green/60">94%</strong></span>
-            <span className="border-l border-white/[0.04] pl-2 uppercase tracking-[0.2em] font-bold">Telemetry: <strong className="text-accent-blue/60">ACTIVE</strong></span>
+            <span className="uppercase tracking-[0.2em] font-bold">Model Validation: <strong className="text-accent-green/60">Verified</strong></span>
           </div>
         }
       />
@@ -158,7 +157,7 @@ export const PlanetTwin: React.FC = () => {
           <div className="absolute top-2.5 left-2.5 z-20 flex items-center space-x-1.5 bg-bg-surface/40 backdrop-blur-md px-2 py-1 border border-white/[0.04] rounded-sm">
             <Globe className="text-accent-blue animate-spin-slow w-2.5 h-2.5" />
             <span className="text-[7.5px] font-mono text-text-muted/70 uppercase tracking-[0.2em] font-bold">
-              SIM_DATA_ENGINE_V1.6
+              Empirical Evidence Layer
             </span>
           </div>
 
@@ -184,8 +183,8 @@ export const PlanetTwin: React.FC = () => {
 
           <div className="flex items-center justify-between text-[7px] font-mono text-text-muted/30 pt-1.5 border-t border-white/[0.04] uppercase tracking-[0.15em] relative z-20">
             <span>Atmospheric density: <strong className="text-text-muted/60">{(scenario === 'current' ? 0.55 : scenario === 'optimized' ? 0.4 : 0.25) * 100}%</strong></span>
-            <span>Biosphere: <strong className="text-text-muted/60">STABLE</strong></span>
-            <span>Kernel: <strong className="text-text-muted/60">r165.x</strong></span>
+            <span>Biosphere: <strong className="text-text-muted/60">Stable</strong></span>
+            <span>Status: <strong className="text-text-muted/60">Validated</strong></span>
           </div>
         </Panel>
 
@@ -198,7 +197,7 @@ export const PlanetTwin: React.FC = () => {
                 <Activity size={12} />
               </div>
               <div>
-                <span className="text-[7.5px] font-mono text-text-muted/40 block uppercase tracking-widest font-bold">Annual Telemetry</span>
+                <span className="text-[7.5px] font-mono text-text-muted/40 block uppercase tracking-widest font-bold">Annual Footprint</span>
               </div>
             </div>
             <span className="text-[11px] font-mono font-black text-text-primary/90">

@@ -34,6 +34,7 @@ export const Forecasts: React.FC = () => {
     error, 
     forecastProfile, 
     behaviorProfile,
+    planetTwinProfile,
     fetchContext 
   } = useCarbonStore();
 
@@ -65,18 +66,32 @@ export const Forecasts: React.FC = () => {
     );
   }
 
-  if (!forecastProfile || !behaviorProfile) {
+  if (!forecastProfile || !behaviorProfile || !planetTwinProfile) {
     return (
       <div className="max-w-md mx-auto text-center py-12 space-y-4">
         <ShieldAlert className="mx-auto text-accent-amber animate-pulse" size={40} />
         <h3 className="text-xs font-bold font-display uppercase tracking-wider text-text-primary">NO FORECAST SCENARIOS FOUND</h3>
-        <p className="text-[11px] text-text-muted">Forecasting require active historical telemetry profile context.</p>
+        <p className="text-[11px] text-text-muted">Forecasting requires active historical profile context.</p>
         <button onClick={fetchContext} className="px-3 py-1.5 rounded bg-accent-green text-bg-primary text-xs font-mono font-bold uppercase">
-          Load Forecast Data
+          Sync Forecast Data
         </button>
       </div>
     );
   }
+
+  const annualBaselineTons = (planetTwinProfile.currentWorld.trajectory.annualEmissionsKg / 1000).toFixed(1);
+  const annualOptimizedTons = (planetTwinProfile.optimizedWorld.trajectory.annualEmissionsKg / 1000).toFixed(1);
+  const annualAggressiveTons = (planetTwinProfile.aggressiveWorld.trajectory.annualEmissionsKg / 1000).toFixed(1);
+
+  const optimizedReduction = Math.round(
+    ((planetTwinProfile.currentWorld.trajectory.annualEmissionsKg - planetTwinProfile.optimizedWorld.trajectory.annualEmissionsKg) / 
+     planetTwinProfile.currentWorld.trajectory.annualEmissionsKg) * 100
+  );
+
+  const aggressiveReduction = Math.round(
+    ((planetTwinProfile.currentWorld.trajectory.annualEmissionsKg - planetTwinProfile.aggressiveWorld.trajectory.annualEmissionsKg) / 
+     planetTwinProfile.currentWorld.trajectory.annualEmissionsKg) * 100
+  );
 
   // Generate multi-horizon cumulative chart data points dynamically
   const chartData = useMemo(() => {
@@ -180,6 +195,45 @@ export const Forecasts: React.FC = () => {
           </ResponsiveContainer>
         </div>
       </Panel>
+
+      {/* 3-Column Comparative Futures Panel */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+        {/* CURRENT PATH */}
+        <Panel level={2} compact className="p-3 bg-bg-surface/50 border-white/[0.04] flex flex-col justify-between min-h-[110px]">
+          <div className="space-y-1">
+            <span className="text-[7.5px] font-mono text-accent-red font-bold uppercase tracking-wider">// Current Path (Baseline)</span>
+            <h4 className="text-sm font-bold text-text-primary uppercase tracking-wide">Projected Inaction</h4>
+          </div>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-[10px] font-mono text-text-muted/60 uppercase">Annual Emissions:</span>
+            <span className="text-lg font-mono font-bold text-accent-red">{annualBaselineTons} t CO₂e</span>
+          </div>
+        </Panel>
+
+        {/* OPTIMIZED PATH */}
+        <Panel level={2} compact className="p-3 bg-bg-surface/50 border-white/[0.04] flex flex-col justify-between min-h-[110px] border-l-2 border-l-accent-blue">
+          <div className="space-y-1">
+            <span className="text-[7.5px] font-mono text-accent-blue font-bold uppercase tracking-wider">// Optimized Path</span>
+            <h4 className="text-sm font-bold text-text-primary uppercase tracking-wide">TERRA Guided</h4>
+          </div>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-[10px] font-mono text-text-muted/60 uppercase">Annual Reduction:</span>
+            <span className="text-lg font-mono font-bold text-accent-blue">{annualOptimizedTons} t CO₂e (-{optimizedReduction}%)</span>
+          </div>
+        </Panel>
+
+        {/* AGGRESSIVE PATH */}
+        <Panel level={2} compact className="p-3 bg-bg-surface/50 border-white/[0.04] flex flex-col justify-between min-h-[110px] border-l-2 border-l-accent-green">
+          <div className="space-y-1">
+            <span className="text-[7.5px] font-mono text-accent-green font-bold uppercase tracking-wider">// Aggressive Recovery</span>
+            <h4 className="text-sm font-bold text-text-primary uppercase tracking-wide">Target Path</h4>
+          </div>
+          <div className="mt-2 flex items-baseline justify-between">
+            <span className="text-[10px] font-mono text-text-muted/60 uppercase">Annual Reduction:</span>
+            <span className="text-lg font-mono font-bold text-accent-green">{annualAggressiveTons} t CO₂e (-{aggressiveReduction}%)</span>
+          </div>
+        </Panel>
+      </div>
 
       {/* Drivers and Counterfactuals Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5">
