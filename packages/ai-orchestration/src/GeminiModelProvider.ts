@@ -1,8 +1,8 @@
 import { Result, ok, fail, InfrastructureError } from '@carbonsense/core';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
-import { AIModelOptions, ModelProvider } from './index';
-import CostTracker from './CostTracker';
-import ResponseValidator from './ResponseValidator';
+import { AIModelOptions, ModelProvider } from './index.js';
+import CostTracker from './CostTracker.js';
+import ResponseValidator from './ResponseValidator.js';
 import { AIUsageMetrics } from '@carbonsense/shared-types';
 
 export class GeminiModelProvider implements ModelProvider {

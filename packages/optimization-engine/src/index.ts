@@ -1,7 +1,7 @@
 import { Result, ok, fail } from '@carbonsense/core';
 import { BehaviorProfile, ForecastProfile, OptimizationPlan } from '@carbonsense/shared-types';
-import OptimizationPlanner from './OptimizationPlanner';
-import OptimizationAggregator from './OptimizationAggregator';
+import OptimizationPlanner from './OptimizationPlanner.js';
+import OptimizationAggregator from './OptimizationAggregator.js';
 
 export interface IOptimizationEngine {
   /**
@@ -55,10 +55,10 @@ export class OptimizationEngine implements IOptimizationEngine {
   }
 }
 
-export { ReductionEstimator } from './ReductionEstimator';
-export { DifficultyEstimator } from './DifficultyEstimator';
-export { BehaviorResistanceModel } from './BehaviorResistanceModel';
-export { ActionRanker } from './ActionRanker';
-export { OptimizationPlanner } from './OptimizationPlanner';
-export { OptimizationAggregator } from './OptimizationAggregator';
+export { ReductionEstimator } from './ReductionEstimator.js';
+export { DifficultyEstimator } from './DifficultyEstimator.js';
+export { BehaviorResistanceModel } from './BehaviorResistanceModel.js';
+export { ActionRanker } from './ActionRanker.js';
+export { OptimizationPlanner } from './OptimizationPlanner.js';
+export { OptimizationAggregator } from './OptimizationAggregator.js';
 export default OptimizationEngine;

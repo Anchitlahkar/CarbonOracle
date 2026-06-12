@@ -1,6 +1,6 @@
 import { Result, ok, fail, ValidationError } from '@carbonsense/core';
 import { CarbonEntry, BehaviorProfile } from '@carbonsense/shared-types';
-import BehaviorAggregator from './BehaviorAggregator';
+import BehaviorAggregator from './BehaviorAggregator.js';
 
 export interface IBehaviorIntelligenceEngine {
   /**
@@ -30,9 +30,9 @@ export class BehaviorIntelligenceEngine implements IBehaviorIntelligenceEngine {
   }
 }
 
-export { PatternDetector } from './PatternDetector';
-export { TrendAnalyzer } from './TrendAnalyzer';
-export { RiskScorer } from './RiskScorer';
-export { BehaviorClassifier } from './BehaviorClassifier';
-export { BehaviorAggregator } from './BehaviorAggregator';
+export { PatternDetector } from './PatternDetector.js';
+export { TrendAnalyzer } from './TrendAnalyzer.js';
+export { RiskScorer } from './RiskScorer.js';
+export { BehaviorClassifier } from './BehaviorClassifier.js';
+export { BehaviorAggregator } from './BehaviorAggregator.js';
 export default BehaviorIntelligenceEngine;

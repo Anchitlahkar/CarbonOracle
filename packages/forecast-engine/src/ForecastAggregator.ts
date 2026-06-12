@@ -8,12 +8,12 @@ import {
   RiskDriver
 } from '@carbonsense/shared-types';
 import { Result, ok, fail, ValidationError } from '@carbonsense/core';
-import BaselineForecaster from './BaselineForecaster';
-import TrendForecaster from './TrendForecaster';
-import MomentumForecaster from './MomentumForecaster';
-import ScenarioForecaster from './ScenarioForecaster';
-import RiskDriverAnalyzer from './RiskDriverAnalyzer';
-import CounterfactualForecaster from './CounterfactualForecaster';
+import BaselineForecaster from './BaselineForecaster.js';
+import TrendForecaster from './TrendForecaster.js';
+import MomentumForecaster from './MomentumForecaster.js';
+import ScenarioForecaster from './ScenarioForecaster.js';
+import RiskDriverAnalyzer from './RiskDriverAnalyzer.js';
+import CounterfactualForecaster from './CounterfactualForecaster.js';
 
 export class ForecastAggregator {
   private baselineForecaster: BaselineForecaster;

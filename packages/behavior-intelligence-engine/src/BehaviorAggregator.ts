@@ -4,10 +4,10 @@ import {
   BehaviorFeatureVector, 
   CarbonCategory 
 } from '@carbonsense/shared-types';
-import PatternDetector from './PatternDetector';
-import TrendAnalyzer from './TrendAnalyzer';
-import RiskScorer from './RiskScorer';
-import BehaviorClassifier from './BehaviorClassifier';
+import PatternDetector from './PatternDetector.js';
+import TrendAnalyzer from './TrendAnalyzer.js';
+import RiskScorer from './RiskScorer.js';
+import BehaviorClassifier from './BehaviorClassifier.js';
 
 export class BehaviorAggregator {
   private detector: PatternDetector;

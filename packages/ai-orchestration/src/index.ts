@@ -63,8 +63,8 @@ export class ProviderRegistry {
 // Global registry instance
 export const providerRegistry = new ProviderRegistry();
 
-export { GeminiModelProvider } from './GeminiModelProvider';
-export { PromptManager } from './PromptManager';
-export { CostTracker } from './CostTracker';
-export { ResponseValidator } from './ResponseValidator';
+export { GeminiModelProvider } from './GeminiModelProvider.js';
+export { PromptManager } from './PromptManager.js';
+export { CostTracker } from './CostTracker.js';
+export { ResponseValidator } from './ResponseValidator.js';
 

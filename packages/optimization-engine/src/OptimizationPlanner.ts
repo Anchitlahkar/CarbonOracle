@@ -1,9 +1,9 @@
 import { BehaviorProfile, ForecastProfile, OptimizationCandidate } from '@carbonsense/shared-types';
 import { getInterventions } from '@carbonsense/knowledge-base';
-import ReductionEstimator from './ReductionEstimator';
-import DifficultyEstimator from './DifficultyEstimator';
-import BehaviorResistanceModel from './BehaviorResistanceModel';
-import ActionRanker from './ActionRanker';
+import ReductionEstimator from './ReductionEstimator.js';
+import DifficultyEstimator from './DifficultyEstimator.js';
+import BehaviorResistanceModel from './BehaviorResistanceModel.js';
+import ActionRanker from './ActionRanker.js';
 
 export class OptimizationPlanner {
   private reductionEstimator: ReductionEstimator;

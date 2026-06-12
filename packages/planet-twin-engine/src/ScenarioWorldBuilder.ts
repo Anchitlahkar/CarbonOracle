@@ -12,9 +12,9 @@ import {
   PlanetHealthIndex
 } from '@carbonsense/shared-types';
 import { getPlanetTwinConfig } from '@carbonsense/knowledge-base';
-import ImpactAccumulator from './ImpactAccumulator';
-import EarthEquivalentCalculator from './EarthEquivalentCalculator';
-import NarrativeGenerator from './NarrativeGenerator';
+import ImpactAccumulator from './ImpactAccumulator.js';
+import EarthEquivalentCalculator from './EarthEquivalentCalculator.js';
+import NarrativeGenerator from './NarrativeGenerator.js';
 
 export class ScenarioWorldBuilder {
   private impactAccumulator: ImpactAccumulator;

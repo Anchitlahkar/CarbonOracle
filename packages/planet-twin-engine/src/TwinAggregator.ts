@@ -6,9 +6,9 @@ import {
   PlanetTwinProfile,
   ComparativeAnalysis
 } from '@carbonsense/shared-types';
-import TrajectorySimulator from './TrajectorySimulator';
-import ScenarioWorldBuilder from './ScenarioWorldBuilder';
-import WorldDivergenceAnalyzer from './WorldDivergenceAnalyzer';
+import TrajectorySimulator from './TrajectorySimulator.js';
+import ScenarioWorldBuilder from './ScenarioWorldBuilder.js';
+import WorldDivergenceAnalyzer from './WorldDivergenceAnalyzer.js';
 
 export class TwinAggregator {
   private trajectorySimulator: TrajectorySimulator;

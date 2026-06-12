@@ -1,6 +1,6 @@
 import { Result, fail } from '@carbonsense/core';
 import { ForecastInput, ForecastProfile } from '@carbonsense/shared-types';
-import ForecastAggregator from './ForecastAggregator';
+import ForecastAggregator from './ForecastAggregator.js';
 
 export interface IForecastEngine {
   /**
@@ -25,11 +25,11 @@ export class ForecastEngine implements IForecastEngine {
   }
 }
 
-export { BaselineForecaster } from './BaselineForecaster';
-export { TrendForecaster } from './TrendForecaster';
-export { MomentumForecaster } from './MomentumForecaster';
-export { ScenarioForecaster } from './ScenarioForecaster';
-export { RiskDriverAnalyzer } from './RiskDriverAnalyzer';
-export { CounterfactualForecaster } from './CounterfactualForecaster';
-export { ForecastAggregator } from './ForecastAggregator';
+export { BaselineForecaster } from './BaselineForecaster.js';
+export { TrendForecaster } from './TrendForecaster.js';
+export { MomentumForecaster } from './MomentumForecaster.js';
+export { ScenarioForecaster } from './ScenarioForecaster.js';
+export { RiskDriverAnalyzer } from './RiskDriverAnalyzer.js';
+export { CounterfactualForecaster } from './CounterfactualForecaster.js';
+export { ForecastAggregator } from './ForecastAggregator.js';
 export default ForecastEngine;

@@ -1,6 +1,7 @@
 {
   "name": "carbonsense-workspace",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "description": "CarbonSense X — Carbon Footprint Awareness and Applied AI Behavioral Optimization Platform",
   "workspaces": [

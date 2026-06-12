@@ -6,7 +6,7 @@ import {
   CarbonDNAProfile,
   PlanetTwinProfile
 } from '@carbonsense/shared-types';
-import TwinAggregator from './TwinAggregator';
+import TwinAggregator from './TwinAggregator.js';
 
 export interface IPlanetTwinEngine {
   /**
@@ -68,11 +68,11 @@ export class PlanetTwinEngine implements IPlanetTwinEngine {
   }
 }
 
-export { TrajectorySimulator } from './TrajectorySimulator';
-export { ImpactAccumulator } from './ImpactAccumulator';
-export { EarthEquivalentCalculator } from './EarthEquivalentCalculator';
-export { WorldDivergenceAnalyzer } from './WorldDivergenceAnalyzer';
-export { NarrativeGenerator } from './NarrativeGenerator';
-export { ScenarioWorldBuilder } from './ScenarioWorldBuilder';
-export { TwinAggregator } from './TwinAggregator';
+export { TrajectorySimulator } from './TrajectorySimulator.js';
+export { ImpactAccumulator } from './ImpactAccumulator.js';
+export { EarthEquivalentCalculator } from './EarthEquivalentCalculator.js';
+export { WorldDivergenceAnalyzer } from './WorldDivergenceAnalyzer.js';
+export { NarrativeGenerator } from './NarrativeGenerator.js';
+export { ScenarioWorldBuilder } from './ScenarioWorldBuilder.js';
+export { TwinAggregator } from './TwinAggregator.js';
 export default PlanetTwinEngine;

@@ -5,12 +5,12 @@ import {
   OptimizationPlan,
   CarbonDNAProfile
 } from '@carbonsense/shared-types';
-import ConsistencyAnalyzer from './ConsistencyAnalyzer';
-import ResponsivenessAnalyzer from './ResponsivenessAnalyzer';
-import OptimizationPotentialAnalyzer from './OptimizationPotentialAnalyzer';
-import ForecastReliabilityAnalyzer from './ForecastReliabilityAnalyzer';
-import ArchetypeClassifier from './ArchetypeClassifier';
-import DNAAggregator from './DNAAggregator';
+import ConsistencyAnalyzer from './ConsistencyAnalyzer.js';
+import ResponsivenessAnalyzer from './ResponsivenessAnalyzer.js';
+import OptimizationPotentialAnalyzer from './OptimizationPotentialAnalyzer.js';
+import ForecastReliabilityAnalyzer from './ForecastReliabilityAnalyzer.js';
+import ArchetypeClassifier from './ArchetypeClassifier.js';
+import DNAAggregator from './DNAAggregator.js';
 
 export interface ICarbonDNAEngine {
   /**
@@ -102,10 +102,10 @@ export class CarbonDNAEngine implements ICarbonDNAEngine {
   }
 }
 
-export { ConsistencyAnalyzer } from './ConsistencyAnalyzer';
-export { ResponsivenessAnalyzer } from './ResponsivenessAnalyzer';
-export { OptimizationPotentialAnalyzer } from './OptimizationPotentialAnalyzer';
-export { ForecastReliabilityAnalyzer } from './ForecastReliabilityAnalyzer';
-export { ArchetypeClassifier } from './ArchetypeClassifier';
-export { DNAAggregator } from './DNAAggregator';
+export { ConsistencyAnalyzer } from './ConsistencyAnalyzer.js';
+export { ResponsivenessAnalyzer } from './ResponsivenessAnalyzer.js';
+export { OptimizationPotentialAnalyzer } from './OptimizationPotentialAnalyzer.js';
+export { ForecastReliabilityAnalyzer } from './ForecastReliabilityAnalyzer.js';
+export { ArchetypeClassifier } from './ArchetypeClassifier.js';
+export { DNAAggregator } from './DNAAggregator.js';
 export default CarbonDNAEngine;
