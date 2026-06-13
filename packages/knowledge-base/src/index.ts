@@ -1,5 +1,4 @@
-wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       import { EmissionFactor, ScientificReference, MethodologyMetadata } from '@carbonsense/shared-types';
-
+import { EmissionFactor, ScientificReference, MethodologyMetadata } from '@carbonsense/shared-types';
 import transportJson from './emission-factors/transport.json' with { type: 'json' };
 import foodJson from './emission-factors/food.json' with { type: 'json' };
 import energyJson from './emission-factors/energy.json' with { type: 'json' };
@@ -114,11 +113,11 @@ export function getPromptTemplate(
   name: 'receipt-analysis' | 'coach-system' | 'coach-context' | 'coach-rules'
 ): ParsedPrompt {
   const filename = `${name}.md`;
-  
+
   // Resolve __dirname dynamically in ESM module
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  
+
   // Build a candidate list of search paths relative to package layout, monorepo parent folders, and process working directory
   const pathsToTry: string[] = [
     path.join(__dirname, 'prompts', filename),
@@ -132,7 +131,7 @@ export function getPromptTemplate(
     pathsToTry.push(path.join(scanDir, 'packages', 'knowledge-base', 'src', 'prompts', filename));
     pathsToTry.push(path.join(scanDir, 'knowledge-base', 'src', 'prompts', filename));
     pathsToTry.push(path.join(scanDir, 'src', 'prompts', filename));
-    
+
     const parentDir = path.dirname(scanDir);
     if (parentDir === scanDir) {
       break;
@@ -154,33 +153,33 @@ export function getPromptTemplate(
       break;
     }
   }
-  
+
   if (!filePath) {
     throw new Error(`Prompt file ${filename} not found. Attempted candidates:\n${pathsToTry.slice(0, 15).join('\n')}`);
   }
-  
+
   const content = fs.readFileSync(filePath, 'utf-8');
-  
+
   // Parse frontmatter
   const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
-  
+
   if (!match) {
     return {
       template: content,
       metadata: { version: 'unknown', owner: 'unknown', updated: 'unknown' }
     };
   }
-  
+
   const yamlContent = match[1];
   const template = match[2];
-  
+
   const metadata = {
     version: 'unknown',
     owner: 'unknown',
     updated: 'unknown'
   };
-  
+
   yamlContent.split('\n').forEach(line => {
     const parts = line.split(':');
     if (parts.length >= 2) {
@@ -191,7 +190,7 @@ export function getPromptTemplate(
       if (key === 'updated') metadata.updated = val;
     }
   });
-  
+
   return { template, metadata };
 }
 
