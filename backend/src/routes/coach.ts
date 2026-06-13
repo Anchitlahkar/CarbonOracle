@@ -101,6 +101,110 @@ router.get('/context', authMiddleware, async (req, res) => {
   }
 });
 
+import { z } from 'zod';
+import { validateBody } from '../middleware/validate.js';
+
+const chatBodySchema = z.object({
+  message: z.string().min(1, 'Message is required'),
+  conversationHistory: z.array(
+    z.object({
+      role: z.enum(['user', 'model']),
+      content: z.string()
+    })
+  ).optional()
+});
+
+/**
+ * Streams response chunks from provider or falls back to text generation.
+ * 
+ * @param res Express response object
+ * @param provider Active LLM provider
+ * @param prompt Configured prompt context
+ * @param startTime Timing marker
+ * @param evidence Diagnostics details
+ */
+async function generateProviderResponse(
+  res: any,
+  provider: any,
+  prompt: string,
+  startTime: number,
+  evidence: any
+) {
+  if (provider.generateTextStream) {
+    const streamResult = await provider.generateTextStream(prompt);
+    if (!streamResult.success) {
+      throw new Error(streamResult.error.message);
+    }
+
+    const { stream, countTokens } = streamResult.value;
+    const promptTokens = await countTokens(prompt);
+    let aggregatedText = '';
+
+    for await (const chunk of stream) {
+      const text = chunk.text();
+      if (text) {
+        aggregatedText += text;
+        res.write(`data: ${JSON.stringify({ text })}\n\n`);
+      }
+    }
+
+    const completionTokens = await countTokens(aggregatedText);
+    const latencyMs = Date.now() - startTime;
+    const usageMetrics = CostTracker.calculateMetrics(
+      provider.name,
+      'gemini-3.1-flash-lite',
+      promptTokens,
+      completionTokens,
+      latencyMs
+    );
+
+    res.write(`data: ${JSON.stringify({ text: '', done: true, usageMetrics, evidence })}\n\n`);
+  } else {
+    const result = await provider.generateText(prompt);
+    if (!result.success) {
+      throw new Error(result.error.message);
+    }
+    const { text, usageMetrics } = result.value;
+    res.write(`data: ${JSON.stringify({ text })}\n\n`);
+    res.write(`data: ${JSON.stringify({ text: '', done: true, usageMetrics, evidence })}\n\n`);
+  }
+}
+
+/**
+ * Handles LLM provider routing and prompt preparation.
+ * 
+ * @param res Express response object
+ * @param message Chat prompt content
+ * @param conversationHistory Backlog history
+ * @param contexts Telemetry data
+ * @param startTime Timing marker
+ * @param userId Context user identifier
+ */
+async function executeChatIntelligence(
+  res: any,
+  message: string,
+  conversationHistory: Message[],
+  contexts: any,
+  startTime: number,
+  userId: string
+) {
+  const user = getUserProfile(userId);
+  const { systemInstruction, contextText, evidence } = CoachPromptBuilder.buildPrompt(
+    user,
+    contexts.behaviorProfile,
+    contexts.forecastProfile,
+    contexts.optimizationPlan,
+    contexts.carbonDNAProfile,
+    contexts.planetTwinProfile
+  );
+
+  const historyText = conversationHistory.map(m => `${m.role === 'user' ? 'User' : 'TERRA'}: ${m.content}`).join('\n');
+  const prompt = `System Instruction:\n${systemInstruction}\n\nContext:\n${contextText}\n\nHistory:\n${historyText}\n\nUser: ${message}\nTERRA:`;
+
+  const provider = providerRegistry.get();
+  await generateProviderResponse(res, provider, prompt, startTime, evidence);
+}
+
 /**
  * POST /api/coach/chat
  * Streams coach advice with evidence tracing and API token metrics.
@@ -108,6 +212,7 @@ router.get('/context', authMiddleware, async (req, res) => {
 router.post('/chat',
   authMiddleware,
   coachRateLimiter,
+  validateBody(chatBodySchema),
   async (req, res) => {
     const startTime = Date.now();
     const userId = req.user?.id || 'test-user-id';
@@ -117,107 +222,20 @@ router.post('/chat',
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
-    res.setHeader('X-Accel-Buffering', 'no'); // Prevent buffering on Vercel/Nginx
+    res.setHeader('X-Accel-Buffering', 'no');
     res.flushHeaders();
 
     try {
-      const { message, conversationHistory = [] } = req.body as {
-        message: string;
-        conversationHistory?: Message[];
-      };
+      const { message, conversationHistory = [] } = req.body;
 
-      if (!message) {
-        res.write(`data: ${JSON.stringify({ error: 'Message is required' })}\n\n`);
-        res.end();
-        return;
-      }
-
-      // Check if API key is missing or mock placeholder
       if (!isApiKeyConfigured()) {
         console.log('[CoachRoute] Gemini API key not configured. Fallback to Offline Mode.');
         await streamOfflineMode(res, contexts);
         return;
       }
 
-      // 1. Fetch user profile and engine outputs
-      const user = getUserProfile(userId);
-
-      // 2. Build the system instruction, dynamic context, and evidence tracing lists
-      const { systemInstruction, contextText, evidence } = CoachPromptBuilder.buildPrompt(
-        user,
-        contexts.behaviorProfile,
-        contexts.forecastProfile,
-        contexts.optimizationPlan,
-        contexts.carbonDNAProfile,
-        contexts.planetTwinProfile
-      );
-
-      // 3. Map conversation history
-      const historyText = conversationHistory.map(m => {
-        const roleName = m.role === 'user' ? 'User' : 'TERRA';
-        return `${roleName}: ${m.content}`;
-      }).join('\n');
-
-      // 4. Construct final prompt
-      const prompt = `System Instruction:\n${systemInstruction}\n\nContext:\n${contextText}\n\nHistory:\n${historyText}\n\nUser: ${message}\nTERRA:`;
-
-      let provider;
-      try {
-        provider = providerRegistry.get();
-      } catch (err) {
-        console.error('[CoachRoute] Provider registry lookup failed:', err);
-        await streamOfflineMode(res, contexts);
-        return;
-      }
-
-      if (provider.generateTextStream) {
-        const streamResult = await provider.generateTextStream(prompt);
-
-        if (!streamResult.success) {
-          console.error('[CoachRoute] generateTextStream failed:', streamResult.error.message);
-          await streamOfflineMode(res, contexts);
-          return;
-        }
-
-        const { stream, countTokens } = streamResult.value;
-        const promptTokens = await countTokens(prompt);
-        let aggregatedText = '';
-
-        for await (const chunk of stream) {
-          const text = chunk.text();
-          if (text) {
-            aggregatedText += text;
-            res.write(`data: ${JSON.stringify({ text })}\n\n`);
-          }
-        }
-
-        const completionTokens = await countTokens(aggregatedText);
-        const latencyMs = Date.now() - startTime;
-
-        const usageMetrics = CostTracker.calculateMetrics(
-          provider.name,
-          'gemini-3.1-flash-lite',
-          promptTokens,
-          completionTokens,
-          latencyMs
-        );
-
-        res.write(`data: ${JSON.stringify({ text: '', done: true, usageMetrics, evidence })}\n\n`);
-        res.end();
-      } else {
-        // Fallback standard response for non-streaming providers
-        const result = await provider.generateText(prompt);
-        if (!result.success) {
-          console.error('[CoachRoute] generateText failed:', result.error.message);
-          await streamOfflineMode(res, contexts);
-          return;
-        }
-        
-        const { text, usageMetrics } = result.value;
-        res.write(`data: ${JSON.stringify({ text })}\n\n`);
-        res.write(`data: ${JSON.stringify({ text: '', done: true, usageMetrics, evidence })}\n\n`);
-        res.end();
-      }
+      await executeChatIntelligence(res, message, conversationHistory, contexts, startTime, userId);
+      res.end();
     } catch (err: any) {
       console.error('[CoachRoute] Unexpected runtime error in chat, falling back to Offline Mode:', err);
       try {

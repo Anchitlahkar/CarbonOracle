@@ -25,10 +25,12 @@ if (supabaseUrl && supabaseServiceKey) {
 }
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+  const isProduction = process.env.NODE_ENV === 'production';
   const authHeader = req.headers.authorization;
+
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    // Development fallback stub
-    if (process.env.NODE_ENV !== 'production' || !supabase) {
+    // Development fallback stub - strictly non-production
+    if (!isProduction && (!supabase || process.env.NODE_ENV === 'test')) {
       req.user = { id: 'test-user-id', email: 'test@carbonsense.com' };
       return next();
     }
@@ -39,7 +41,19 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
   const token = rawToken.replace(/^["']|["']$/g, '').trim();
 
   try {
-    if (!supabase || token === 'mock-jwt-token' || token.startsWith('mock-')) {
+    const isMockToken = token === 'mock-jwt-token' || token.startsWith('mock-');
+    if (isMockToken) {
+      if (isProduction) {
+        return res.status(401).json({ data: null, error: 'Unauthorized: Mock tokens are disallowed in production' });
+      }
+      req.user = { id: 'test-user-id', email: 'test@carbonsense.com' };
+      return next();
+    }
+
+    if (!supabase) {
+      if (isProduction) {
+        return res.status(500).json({ data: null, error: 'Auth service misconfigured in production' });
+      }
       req.user = { id: 'test-user-id', email: 'test@carbonsense.com' };
       return next();
     }

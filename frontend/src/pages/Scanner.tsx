@@ -107,6 +107,13 @@ export const Scanner: React.FC = () => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fileInputRef.current?.click();
+    }
+  };
+
   const columns = [
     {
       header: 'Scanned Item',
@@ -179,6 +186,10 @@ export const Scanner: React.FC = () => {
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            role="button"
+            aria-label="Drag and drop or click to upload receipt image"
             className="border border-dashed border-white/[0.08] hover:border-accent-blue/30 bg-bg-surface/40 rounded-sm p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all min-h-[200px] group shadow-xl"
           >
             <input

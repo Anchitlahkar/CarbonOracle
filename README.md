@@ -8,6 +8,9 @@
   <img src="https://img.shields.io/badge/PromptWars-2026-0ea5e9" alt="PromptWars" />
 </p>
 
+### 🏆 Chosen Challenge Vertical
+**Applied AI Behavioral Coach & Carbon Footprint Awareness Assistant**
+
 ### ⚡ 10-Second Value Proposition
 CarbonSense is a premium **AI Carbon Intelligence Platform** powered by **TERRA**, a world-class carbon advisor. It shifts carbon tracking from generic telemetry and curves to **concrete decisions and consequences**. TERRA synthesizes your behavior patterns, projects environmental futures, and builds ranked carbon roadmaps using Multi-Criteria Decision Analysis (MCDA).
 
