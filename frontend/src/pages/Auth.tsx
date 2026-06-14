@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Activity, ShieldCheck, Mail, Lock, UserPlus } from 'lucide-react';
 import useCarbonStore from '../store/carbonStore';
+import supabase from '../lib/supabase';
+import { PremiumLoader } from '../components/ui';
 
 export const Auth: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -11,13 +13,25 @@ export const Auth: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { loginMock } = useCarbonStore();
+  const { loginMock, user, authInitialized } = useCarbonStore();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (authInitialized && user) {
+      console.log('[AUTH_RESTORE] Logged-in user accessed Auth page. Redirecting to /dashboard.');
+      navigate('/dashboard');
+    }
+  }, [user, authInitialized, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
+
+    const isProduction = import.meta.env.PROD;
+    const isDevelopment = import.meta.env.DEV;
+    const hasKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+    const enableMockAuth = import.meta.env.VITE_ENABLE_MOCK_AUTH === 'true';
 
     if (!email || !password || (isSignUp && !username)) {
       setError('Please fill in all required fields.');
@@ -25,24 +39,121 @@ export const Auth: React.FC = () => {
       return;
     }
 
-    // Fallback mock logic for testing auth instant simulation
-    setTimeout(() => {
-      const parsedUser = username || email.split('@')[0];
-      loginMock(parsedUser);
+    if (isProduction && !hasKeys) {
+      console.error('[AUTH_REFRESH_FAILED] Fatal: Production build missing Supabase keys.');
+      setError('Configuration error: authentication client unconfigured in production.');
       setIsLoading(false);
-      navigate('/dashboard');
-    }, 800);
+      return;
+    }
+
+    if (hasKeys) {
+      try {
+        if (isSignUp) {
+          const { data, error: signUpError } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+              data: {
+                username: username,
+              }
+            }
+          });
+          if (signUpError) throw signUpError;
+          if (data?.user && !data.session) {
+            console.log('[AUTH_RESTORE] Signup request completed. Awaiting email verification.');
+            setError('Account registered! Verify email or log in.');
+            setIsLoading(false);
+            return;
+          }
+          console.log(`[AUTH_SIGNED_IN] User signed up and logged in: ${data.user?.id}`);
+        } else {
+          const { data, error: signInError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+          if (signInError) throw signInError;
+          console.log(`[AUTH_SIGNED_IN] User signed in via credentials: ${data.user?.id}`);
+        }
+        setIsLoading(false);
+        navigate('/dashboard');
+      } catch (err: any) {
+        console.error('[AUTH_REFRESH_FAILED] Authentication failed:', err);
+        setError(err.message || 'Authentication failed');
+        setIsLoading(false);
+      }
+    } else if (isDevelopment && enableMockAuth) {
+      console.log('[AUTH_RESTORE] Triggering mock auth flow in development environment.');
+      setTimeout(() => {
+        const parsedUser = username || email.split('@')[0];
+        try {
+          loginMock(parsedUser);
+          setIsLoading(false);
+          navigate('/dashboard');
+        } catch (err: any) {
+          setError(err.message || 'Mock login failed');
+          setIsLoading(false);
+        }
+      }, 800);
+    } else {
+      console.error('[AUTH_REFRESH_FAILED] Auth config missing and mock auth is disabled.');
+      setError('Supabase connection details are missing.');
+      setIsLoading(false);
+    }
   };
 
-  const triggerGoogleOAuth = () => {
+  const triggerGoogleOAuth = async () => {
     setError('');
     setIsLoading(true);
-    setTimeout(() => {
-      loginMock('google_researcher');
+
+    const isProduction = import.meta.env.PROD;
+    const isDevelopment = import.meta.env.DEV;
+    const hasKeys = !!(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+    const enableMockAuth = import.meta.env.VITE_ENABLE_MOCK_AUTH === 'true';
+
+    if (isProduction && !hasKeys) {
+      console.error('[AUTH_REFRESH_FAILED] Fatal: Production build missing Supabase keys.');
+      setError('Configuration error: authentication client unconfigured in production.');
       setIsLoading(false);
-      navigate('/dashboard');
-    }, 600);
+      return;
+    }
+
+    if (hasKeys) {
+      try {
+        console.log('[AUTH_INIT] Directing user to Google OAuth provider');
+        const { error: oauthError } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + '/dashboard',
+          }
+        });
+        if (oauthError) throw oauthError;
+      } catch (err: any) {
+        console.error('[AUTH_REFRESH_FAILED] OAuth initialization failed:', err);
+        setError(err.message || 'OAuth authentication failed');
+        setIsLoading(false);
+      }
+    } else if (isDevelopment && enableMockAuth) {
+      console.log('[AUTH_RESTORE] Simulating Google OAuth login in development.');
+      setTimeout(() => {
+        try {
+          loginMock('google_researcher');
+          setIsLoading(false);
+          navigate('/dashboard');
+        } catch (err: any) {
+          setError(err.message || 'Mock OAuth login failed');
+          setIsLoading(false);
+        }
+      }, 600);
+    } else {
+      console.error('[AUTH_REFRESH_FAILED] Auth config missing and mock auth is disabled.');
+      setError('Supabase connection details are missing.');
+      setIsLoading(false);
+    }
   };
+
+  if (!authInitialized) {
+    return <PremiumLoader label="SYNCHRONIZING ORACLE..." className="min-h-screen" />;
+  }
 
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary flex items-center justify-center p-4 selection:bg-accent-green/30 font-body relative overflow-hidden">

@@ -1,9 +1,10 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { PremiumLoader } from './components/ui';
+import useCarbonStore from './store/carbonStore';
 
 // Lazy load page-level components to enable code splitting
 const Landing = lazy(() => import('./pages/Landing'));
@@ -18,6 +19,14 @@ const Coach = lazy(() => import('./pages/Coach'));
 const Profile = lazy(() => import('./pages/Profile'));
 
 export const App: React.FC = () => {
+  const { initializeAuth } = useCarbonStore();
+
+  useEffect(() => {
+    initializeAuth().catch((err) => {
+      console.error('[AUTH_INIT] Critical bootstrap error:', err);
+    });
+  }, [initializeAuth]);
+
   return (
     <Router>
       <Analytics />
