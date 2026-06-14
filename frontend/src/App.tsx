@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { PremiumLoader } from './components/ui';
@@ -97,6 +98,7 @@ export const App: React.FC = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
+      <Analytics />
     </Router>
   );
 };
