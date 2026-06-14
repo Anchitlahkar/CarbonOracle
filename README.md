@@ -113,6 +113,7 @@ graph TD
 *   **Frontend**: React, TypeScript, Zustand, Tailwind, React Three Fiber (3D).
 *   **Backend**: Node.js (Express), Supabase (Auth/DB/Realtime).
 *   **AI**: Google Gemini 1.5 Flash API (Strictly for reasoning/OCR).
+*   **Development Tools**: Built with the assistance of **Google Antigravity / Gemini CLI** agent framework for accelerated engineering, architecture formulation, and testing.
 *   **Deployment**: Vercel.
 
 ---
