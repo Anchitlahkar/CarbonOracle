@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import { PremiumLoader } from './components/ui';
@@ -19,6 +20,7 @@ const Profile = lazy(() => import('./pages/Profile'));
 export const App: React.FC = () => {
   return (
     <Router>
+      <Analytics />
       <Suspense fallback={<PremiumLoader label="SYNCHRONIZING ORACLE..." className="min-h-screen" />}>
         <Routes>
           {/* Public Routes */}
