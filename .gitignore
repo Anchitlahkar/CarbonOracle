@@ -1,15 +1,53 @@
+# Dependencies
 node_modules/
+
+# Build Output
 dist/
 build/
 coverage/
+.next/
+out/
+
+# Environment Variables
 .env
 .env.local
 .env.*.local
+.env*
 backend/.env
 frontend/.env
+
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS Files
 .DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Vercel
+.vercel/
+
+# Temporary Files
+tmp/
+temp/
+.cache/
+
+# Antigravity / Agent Files
 .agents/
-.docs
-.vercel
-.env*
+
+# Documentation Generation
+.docs/
+
+# Testing
+playwright-report/
+test-results/
+
+# TypeScript
+*.tsbuildinfo

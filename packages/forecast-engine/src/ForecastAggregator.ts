@@ -109,7 +109,7 @@ export class ForecastAggregator {
     });
   }
 
-  private calculateIntegrity(historyDaysCount: number, vector: any, riskScore: number): ForecastIntegrity {
+  private calculateIntegrity(historyDaysCount: number, vector: import("@carbonsense/shared-types").BehaviorFeatureVector, riskScore: number): ForecastIntegrity {
     let score = 100;
     const reasons: string[] = [];
 

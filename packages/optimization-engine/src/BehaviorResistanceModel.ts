@@ -5,7 +5,7 @@ export class BehaviorResistanceModel {
    * Computes the behavior resistance score including risk factor and habit strength analysis.
    */
   public estimate(
-    intervention: any,
+    intervention: unknown,
     behaviorProfile: BehaviorProfile,
     forecastProfile: ForecastProfile
   ): BehaviorResistanceScore {

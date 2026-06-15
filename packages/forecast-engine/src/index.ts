@@ -33,7 +33,7 @@ export class ForecastEngine implements IForecastEngine {
   public generateForecastProfile(input: ForecastInput): Result<ForecastProfile> {
     try {
       return this.aggregator.aggregate(input);
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(error);
     }
   }

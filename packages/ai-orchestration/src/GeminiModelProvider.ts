@@ -61,14 +61,14 @@ export class GeminiModelProvider implements ModelProvider {
       );
 
       return ok({ text, usageMetrics });
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(new InfrastructureError(`Gemini Text execution failed: ${error.message}`));
     }
   }
 
   public async generateJson<T>(
     prompt: string,
-    schema?: any,
+    schema?: unknown,
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>> {
     const startTime = Date.now();
@@ -102,7 +102,7 @@ export class GeminiModelProvider implements ModelProvider {
       }
 
       return ok({ data: validation.value, usageMetrics });
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(new InfrastructureError(`Gemini JSON execution failed: ${error.message}`));
     }
   }
@@ -111,7 +111,7 @@ export class GeminiModelProvider implements ModelProvider {
     imageBuffer: Buffer,
     mimeType: string,
     prompt: string,
-    schema?: any,
+    schema?: unknown,
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>> {
     const startTime = Date.now();
@@ -130,7 +130,7 @@ export class GeminiModelProvider implements ModelProvider {
         { text: prompt },
         {
           inlineData: {
-            mimeType: mimeType as any,
+            mimeType: mimeType as never,
             data: base64Image
           }
         }
@@ -157,7 +157,7 @@ export class GeminiModelProvider implements ModelProvider {
       }
 
       return ok({ data: validation.value, usageMetrics });
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(new InfrastructureError(`Gemini Vision execution failed: ${error.message}`));
     }
   }
@@ -165,7 +165,7 @@ export class GeminiModelProvider implements ModelProvider {
   public async generateTextStream(
     prompt: string,
     options?: AIModelOptions
-  ): Promise<Result<{ stream: AsyncIterable<any>; countTokens: (text: string) => Promise<number> }>> {
+  ): Promise<Result<{ stream: AsyncIterable<unknown>; countTokens: (text: string) => Promise<number> }>> {
     const modelName = 'gemini-3.1-flash-lite';
     const model = this.getModel(modelName, options);
 
@@ -178,7 +178,7 @@ export class GeminiModelProvider implements ModelProvider {
           return res.totalTokens;
         }
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(new InfrastructureError(`Gemini stream failed: ${error.message}`));
     }
   }

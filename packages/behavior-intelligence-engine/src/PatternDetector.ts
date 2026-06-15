@@ -2,7 +2,7 @@ import { CarbonEntry, BehaviorSignal, BehaviorEvidence } from '@carbonsense/shar
 import { getBehaviorThresholds } from '@carbonsense/knowledge-base';
 
 export class PatternDetector {
-  private thresholds: any;
+  private thresholds: Record<string, unknown>;
 
   constructor() {
     this.thresholds = getBehaviorThresholds();

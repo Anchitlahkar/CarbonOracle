@@ -19,12 +19,12 @@ export const energyFactors = energyJson as unknown as EmissionFactor[];
 export const shoppingFactors = shoppingJson as unknown as EmissionFactor[];
 export const references = referencesJson as unknown as ScientificReference[];
 export const methodologyMetadata = methodologyJson as unknown as MethodologyMetadata;
-export const behaviorThresholds = behaviorThresholdsJson as any;
-export const scenarioLibrary = scenarioLibraryJson as any;
-export const interventions = interventionsJson as any;
-export const impactFactors = impactFactorsJson as any;
-export const earthEquivalents = earthEquivalentsJson as any;
-export const planetTwinConfig = planetTwinConfigJson as any;
+export const behaviorThresholds = behaviorThresholdsJson as Record<string, unknown>;
+export const scenarioLibrary = scenarioLibraryJson as Record<string, unknown>;
+export const interventions = interventionsJson as Record<string, unknown>;
+export const impactFactors = impactFactorsJson as Record<string, unknown>;
+export const earthEquivalents = earthEquivalentsJson as Record<string, unknown>;
+export const planetTwinConfig = planetTwinConfigJson as Record<string, unknown>;
 
 /**
  * Returns all emission factors loaded from registry datasets.
@@ -55,42 +55,42 @@ export function getMethodologyMetadata(): MethodologyMetadata {
 /**
  * Returns behavior threshold configuration parameters.
  */
-export function getBehaviorThresholds(): any {
+export function getBehaviorThresholds(): Record<string, unknown> {
   return behaviorThresholds;
 }
 
 /**
  * Returns scenario definitions library.
  */
-export function getScenarioLibrary(): any {
+export function getScenarioLibrary(): Record<string, unknown> {
   return scenarioLibrary;
 }
 
 /**
  * Returns intervention definitions.
  */
-export function getInterventions(): any[] {
+export function getInterventions(): Record<string, unknown>[] {
   return interventions;
 }
 
 /**
  * Returns impact factors.
  */
-export function getImpactFactors(): any {
+export function getImpactFactors(): Record<string, unknown> {
   return impactFactors;
 }
 
 /**
  * Returns earth equivalents settings.
  */
-export function getEarthEquivalents(): any {
+export function getEarthEquivalents(): Record<string, unknown> {
   return earthEquivalents;
 }
 
 /**
  * Returns planet twin configuration parameters.
  */
-export function getPlanetTwinConfig(): any {
+export function getPlanetTwinConfig(): Record<string, unknown> {
   return planetTwinConfig;
 }
 

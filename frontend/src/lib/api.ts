@@ -19,12 +19,12 @@ function getHeaders(isMultipart = false): HeadersInit {
     headers['Authorization'] = `Bearer ${token}`;
   }
   
-  const authVal = (headers as any)['Authorization'] || 'None';
+  const authVal = (headers as Record<string, string>)['Authorization'] || 'None';
   console.log(`[API_AUTH_HEADER] Authorization header: ${authVal}`);
   return headers;
 }
 
-export async function fetchContextApi(): Promise<any> {
+export async function fetchContextApi(): Promise<{ behaviorProfile: import("@carbonsense/shared-types").BehaviorProfile, forecastProfile: import("@carbonsense/shared-types").ForecastProfile, optimizationPlan: import("@carbonsense/shared-types").OptimizationPlan, carbonDNAProfile: import("@carbonsense/shared-types").CarbonDNAProfile, planetTwinProfile: import("@carbonsense/shared-types").PlanetTwinProfile }> {
   try {
     const res = await fetch(`${API_BASE}/api/coach/context`, {
       method: 'GET',
@@ -34,22 +34,22 @@ export async function fetchContextApi(): Promise<any> {
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}));
       const errorMsg = errData.error || `HTTP error! status: ${res.status}`;
-      const error = new Error(errorMsg) as any;
+      const error = new Error(errorMsg) as Error & { status?: number };
       error.status = res.status;
       throw error;
     }
     
     const payload = await res.json();
     return payload.data;
-  } catch (err: any) {
-    if (err.name === 'TypeError' && err.message.toLowerCase().includes('fetch')) {
-      err.status = -1;
+  } catch (err: unknown) {
+    if (err instanceof Error && err.name === 'TypeError' && err.message.toLowerCase().includes('fetch')) {
+      (err as Error & { status?: number }).status = -1;
     }
     throw err;
   }
 }
 
-export async function analyzeReceiptApi(file: File): Promise<any> {
+export async function analyzeReceiptApi(file: File): Promise<unknown> {
   const state = useCarbonStore.getState();
   if (state.isDemoMode) {
     console.log('[DEMO_MODE] Intercepted analyzeReceiptApi. Simulating receipt scan...');
@@ -135,7 +135,7 @@ export interface ChatMessage {
 
 export interface StreamCallbacks {
   onChunk: (text: string) => void;
-  onDone: (payload: { usageMetrics: any; evidence: any[] }) => void;
+  onDone: (payload: { usageMetrics: Record<string, unknown>; evidence: Record<string, unknown>[] }) => void;
   onError: (error: string) => void;
 }
 
@@ -186,8 +186,8 @@ export async function streamCoachChat(
         ]
       });
       return;
-    } catch (e: any) {
-      callbacks.onError(e.message || 'Error occurred during simulation');
+    } catch (e: unknown) {
+      callbacks.onError((e as Error).message || 'Error occurred during simulation');
       return;
     }
   }
@@ -253,7 +253,7 @@ export async function streamCoachChat(
         }
       }
     }
-  } catch (error: any) {
-    callbacks.onError(error.message || 'Network communication error');
+  } catch (error: unknown) {
+    callbacks.onError((error as Error).message || 'Network communication error');
   }
 }

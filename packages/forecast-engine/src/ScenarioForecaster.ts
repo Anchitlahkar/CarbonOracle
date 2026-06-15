@@ -7,7 +7,7 @@ import {
 import { getScenarioLibrary } from '@carbonsense/knowledge-base';
 
 export class ScenarioForecaster {
-  private library: any;
+  private library: Record<string, unknown>;
 
   constructor() {
     this.library = getScenarioLibrary();
@@ -36,7 +36,7 @@ export class ScenarioForecaster {
   private projectSingleScenario(
     vector: BehaviorFeatureVector,
     name: string,
-    definition: any,
+    definition: Record<string, unknown>,
     horizonDays: number,
     baseConfidence: number
   ): ForecastScenarioResult {

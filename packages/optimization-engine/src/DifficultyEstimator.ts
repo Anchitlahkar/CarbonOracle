@@ -5,7 +5,7 @@ export class DifficultyEstimator {
    * Estimates implementation difficulty score (0 to 100) and difficulty level ('easy' | 'medium' | 'hard').
    */
   public estimate(
-    intervention: any,
+    intervention: unknown,
     behaviorProfile: BehaviorProfile,
     forecastProfile: ForecastProfile
   ): { score: number; level: 'easy' | 'medium' | 'hard' } {

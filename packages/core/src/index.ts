@@ -14,7 +14,7 @@ export const fail = <E = Error>(error: E): Result<never, E> => ({
 });
 
 // Domain Event Base Interface
-export interface DomainEvent<TPayload = any> {
+export interface DomainEvent<TPayload = unknown> {
   id: string;
   timestamp: Date;
   type: string;
@@ -26,7 +26,7 @@ export abstract class AppError extends Error {
   public abstract readonly code: string;
   public readonly timestamp: Date = new Date();
 
-  constructor(message: string, public readonly details?: any) {
+  constructor(message: string, public readonly details?: unknown) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
   }
@@ -58,10 +58,10 @@ export class InfrastructureError extends AppError {
 
 // Common Logger Interface
 export interface ILogger {
-  info(message: string, context?: any): void;
-  warn(message: string, context?: any): void;
-  error(message: string, error?: any, context?: any): void;
-  debug?(message: string, context?: any): void;
+  info(message: string, context?: unknown): void;
+  warn(message: string, context?: unknown): void;
+  error(message: string, error?: unknown, context?: unknown): void;
+  debug?(message: string, context?: unknown): void;
 }
 
 // Common Configuration Interface

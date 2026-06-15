@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { Session } from '@supabase/supabase-js';
 import { 
   UserProfile, 
   CarbonEntry,
@@ -21,9 +22,15 @@ import {
   demoChatHistory
 } from '../lib/demoData';
 
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'model';
+  content: string;
+}
+
 interface CarbonState {
   user: UserProfile | null;
-  session: any | null;
+  session: Session | { access_token: string } | null;
   isLoading: boolean;
   authInitialized: boolean;
   isDemoMode: boolean;
@@ -34,9 +41,9 @@ interface CarbonState {
   optimizationPlan: OptimizationPlan | null;
   carbonDNAProfile: CarbonDNAProfile | null;
   planetTwinProfile: PlanetTwinProfile | null;
-  chatHistory: any[];
+  chatHistory: ChatMessage[];
   setUser: (user: UserProfile | null) => void;
-  setSession: (session: any | null) => void;
+  setSession: (session: Session | { access_token: string } | null) => void;
   setLoading: (isLoading: boolean) => void;
   setCarbonEntries: (entries: CarbonEntry[]) => void;
   addCarbonEntry: (entry: CarbonEntry) => void;
@@ -45,7 +52,7 @@ interface CarbonState {
   initializeAuth: () => Promise<void>;
   fetchContext: () => Promise<void>;
   enterDemoMode: () => void;
-  addChatMessage: (msg: any) => void;
+  addChatMessage: (msg: ChatMessage) => void;
   clearChatHistory: () => void;
 }
 
@@ -291,12 +298,12 @@ export const useCarbonStore = create<CarbonState>((set, get) => ({
         planetTwinProfile: data.planetTwinProfile,
         isLoading: false,
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to fetch user carbon telemetry:', err);
       
       let mappedError = 'system_unavailable';
-      const status = err.status;
-      const message = (err.message || '').toLowerCase();
+      const status = (err as Error & { status?: number }).status;
+      const message = ((err as Error).message || '').toLowerCase();
       
       if (
         status === 401 || 
@@ -345,7 +352,7 @@ export const useCarbonStore = create<CarbonState>((set, get) => ({
       optimizationPlan: { ...demoOptimizationPlan },
       carbonDNAProfile: { ...demoCarbonDNAProfile },
       planetTwinProfile: { ...demoPlanetTwinProfile },
-      chatHistory: [...demoChatHistory],
+      chatHistory: [...demoChatHistory] as ChatMessage[],
       isLoading: false,
       error: null
     });
@@ -375,7 +382,7 @@ export const useCarbonStore = create<CarbonState>((set, get) => ({
     } else {
       localStorage.setItem('carbonsense_chat_history', JSON.stringify(welcome));
     }
-    set({ chatHistory: welcome });
+    set({ chatHistory: welcome as ChatMessage[] });
   }
 }));
 

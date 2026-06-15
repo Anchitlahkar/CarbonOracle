@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient, User, AuthError } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -28,13 +28,13 @@ const sanitizeHeaderValue = (val: string) => val.replace(/[^\x20-\x7E]/g, '').re
 const supabaseUrl = sanitizeHeaderValue(process.env.SUPABASE_URL || '');
 const supabaseServiceKey = sanitizeHeaderValue(process.env.SUPABASE_SERVICE_KEY || '');
 
-let supabase: any = null;
+let supabase: SupabaseClient | null = null;
 if (supabaseUrl && supabaseServiceKey) {
   supabase = createClient(supabaseUrl, supabaseServiceKey);
 }
 
 const supabaseAnonKey = sanitizeHeaderValue(process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || '');
-let supabaseAnon: any = null;
+let supabaseAnon: SupabaseClient | null = null;
 if (supabaseUrl && supabaseAnonKey) {
   supabaseAnon = createClient(supabaseUrl, supabaseAnonKey);
 }
@@ -92,8 +92,8 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
       return res.status(500).json({ data: null, error: 'Auth service uninitialized' });
     }
 
-    let user: any = null;
-    let authError: any = null;
+    let user: User | null = null;
+    let authError: AuthError | unknown = null;
 
     if (supabase) {
       try {
@@ -127,8 +127,8 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
       console.error('[AUTH_REFRESH_FAILED] Invalid or expired auth session:', authError);
       console.log(`[FAILED_REQUEST] Endpoint: ${req.originalUrl}`);
       console.log(`[FAILED_REQUEST] Error details:`, authError);
-      console.log(`[BACKEND_AUTH_RESULT] Failure: Invalid or expired auth session. Error: ${authError?.message || 'User not found'}`);
-      return res.status(401).json({ data: null, error: 'Invalid or expired auth session', details: authError?.message });
+      console.log(`[BACKEND_AUTH_RESULT] Failure: Invalid or expired auth session. Error: ${(authError as Error)?.message || 'User not found'}`);
+      return res.status(401).json({ data: null, error: 'Invalid or expired auth session', details: (authError as Error)?.message });
     }
 
     req.user = {
@@ -138,9 +138,9 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
     console.log(`[AUTH_SIGNED_IN] User validated via Supabase: ${user.id}`);
     console.log(`[BACKEND_AUTH_RESULT] Success: Authenticated user ${user.id}`);
     next();
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('[AUTH_REFRESH_FAILED] Server validation error:', err);
-    console.log(`[BACKEND_AUTH_RESULT] Failure: Exception thrown during validation. Error: ${err.message}`);
+    console.log(`[BACKEND_AUTH_RESULT] Failure: Exception thrown during validation. Error: ${(err as Error).message}`);
     return res.status(500).json({ data: null, error: 'Server validation error' });
   }
 }

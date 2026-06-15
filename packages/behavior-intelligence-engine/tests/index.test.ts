@@ -14,7 +14,7 @@ describe('Behavior Intelligence Engine Suite', () => {
   const userId = 'user-researcher-1';
 
   // HELPER to create entries
-  const makeEntry = (category: any, subCategory: string, amountKg: number, daysAgo: number): CarbonEntry => {
+  const makeEntry = (category: string, subCategory: string, amountKg: number, daysAgo: number): CarbonEntry => {
     const date = new Date();
     date.setDate(date.getDate() - daysAgo);
     return {
@@ -272,8 +272,8 @@ describe('Behavior Intelligence Engine Suite', () => {
     test('19. Adds signal violation penalties', () => {
       const vec = mockVector(3.0); // 10 base
       const mockSignals = [
-        { id: 's1', type: 'HighCarDependency', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }, // 0.8 * 15 = 12
-        { id: 's2', type: 'FrequentBeefConsumption', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }, // 1.0 * 10 = 10
+        { id: 's1', type: 'HighCarDependency', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }, // 0.8 * 15 = 12
+        { id: 's2', type: 'FrequentBeefConsumption', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }, // 1.0 * 10 = 10
       ];
       const res = scorer.score(vec, mockSignals, []);
       expect(res.score).toBe(32); // 10 base + 12 + 10 = 32
@@ -282,9 +282,9 @@ describe('Behavior Intelligence Engine Suite', () => {
     test('20. Caps maximum risk score at 100', () => {
       const vec = mockVector(100.0); // Maximum base risk ~55
       const mockSignals = [
-        { id: 's1', type: 'HighCarDependency', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }, // 15
-        { id: 's2', type: 'HighFlightFrequency', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }, // 15
-        { id: 's3', type: 'FrequentBeefConsumption', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }, // 10
+        { id: 's1', type: 'HighCarDependency', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }, // 15
+        { id: 's2', type: 'HighFlightFrequency', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }, // 15
+        { id: 's3', type: 'FrequentBeefConsumption', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }, // 10
       ];
       const mockIncreasingTrend = [
         { id: 't1', trendType: 'total_emissions', direction: 'Increasing' as const, changePercent: 50, confidence: 0.9, timeWindow: '30d' as const, generatedAt: new Date() }

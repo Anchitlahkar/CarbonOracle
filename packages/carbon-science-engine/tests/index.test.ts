@@ -75,7 +75,7 @@ describe('CarbonScienceEngine Calculations', () => {
   // Test 5: Validation Limits (Invalid category)
   test('fails validation when category is invalid', () => {
     const result = engine.calculate({
-      category: 'invalid_category' as any,
+      category: 'invalid_category' as unknown as import("@carbonsense/shared-types").CarbonCategory,
       subCategory: 'car_petrol',
       amount: 100,
       unit: 'km',

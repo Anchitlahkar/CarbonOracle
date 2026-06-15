@@ -16,7 +16,7 @@ export class ResponseValidator {
    */
   public static parseAndValidateJson<T>(
     rawText: string,
-    validateFn?: (parsed: any) => boolean
+    validateFn?: (parsed: unknown) => boolean
   ): Result<T> {
     try {
       const cleanText = this.cleanJsonText(rawText);
@@ -27,7 +27,7 @@ export class ResponseValidator {
       }
 
       return ok(parsed);
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(new ValidationError(`Failed to parse model response as JSON: ${error.message}`));
     }
   }

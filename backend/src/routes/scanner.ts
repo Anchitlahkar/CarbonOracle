@@ -103,7 +103,7 @@ router.post('/analyze',
       }
 
       return res.status(200).json({ data: result.value, error: null });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('[ScannerRoute] Error in analyze receipt, falling back to local mock:', err);
       return res.status(200).json({ data: getOfflineReceiptResult(), error: null });
     }

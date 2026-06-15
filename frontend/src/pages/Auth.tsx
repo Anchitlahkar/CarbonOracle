@@ -81,9 +81,9 @@ export const Auth: React.FC = () => {
         }
         setIsLoading(false);
         navigate('/dashboard');
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('[AUTH_REFRESH_FAILED] Authentication failed:', err);
-        setError(err.message || 'Authentication failed');
+        setError((err as Error).message || 'Authentication failed');
         setIsLoading(false);
       }
     } else if (isDevelopment && enableMockAuth) {
@@ -94,8 +94,8 @@ export const Auth: React.FC = () => {
           loginMock(parsedUser);
           setIsLoading(false);
           navigate('/dashboard');
-        } catch (err: any) {
-          setError(err.message || 'Mock login failed');
+        } catch (err: unknown) {
+          setError((err as Error).message || 'Mock login failed');
           setIsLoading(false);
         }
       }, 800);
@@ -140,9 +140,9 @@ export const Auth: React.FC = () => {
           }
         });
         if (oauthError) throw oauthError;
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('[AUTH_REFRESH_FAILED] OAuth initialization failed:', err);
-        setError(err.message || 'OAuth authentication failed');
+        setError((err as Error).message || 'OAuth authentication failed');
         setIsLoading(false);
       }
     } else if (isDevelopment && enableMockAuth) {
@@ -152,8 +152,8 @@ export const Auth: React.FC = () => {
           loginMock('google_researcher');
           setIsLoading(false);
           navigate('/dashboard');
-        } catch (err: any) {
-          setError(err.message || 'Mock OAuth login failed');
+        } catch (err: unknown) {
+          setError((err as Error).message || 'Mock OAuth login failed');
           setIsLoading(false);
         }
       }, 600);

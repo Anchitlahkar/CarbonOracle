@@ -148,17 +148,17 @@ export const Coach: React.FC = () => {
           accumulatedTextRef.current += chunk;
           setStreamingText(accumulatedTextRef.current);
         },
-        onDone: (payload: { usageMetrics: any; evidence: any[] }) => {
+        onDone: (payload: { usageMetrics: Record<string, unknown>; evidence: Record<string, unknown>[] }) => {
           setIsThinking(false);
           const finalResponse: ExtendedMessage = {
             id: `model-${Date.now()}`,
             role: 'model',
             content: accumulatedTextRef.current || 'Inquiry processed.',
             performance: {
-              latencyMs: payload.usageMetrics?.latencyMs || 840,
-              tokens: (payload.usageMetrics?.promptTokens || 342) + (payload.usageMetrics?.completionTokens || 110),
-              costUsd: payload.usageMetrics?.estimatedCostUsd || 0.00012,
-              model: payload.usageMetrics?.model || 'gemini-3.1-flash-lite'
+              latencyMs: (payload.usageMetrics?.latencyMs as number) || 840,
+              tokens: ((payload.usageMetrics?.promptTokens as number) || 342) + ((payload.usageMetrics?.completionTokens as number) || 110),
+              costUsd: (payload.usageMetrics?.estimatedCostUsd as number) || 0.00012,
+              model: (payload.usageMetrics?.model as string) || 'gemini-3.1-flash-lite'
             },
             evidence: {
               behavior: true,

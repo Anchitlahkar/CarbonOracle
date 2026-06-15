@@ -463,7 +463,7 @@ const createDemoWorld = (
   healthScore: number,
   summary: string,
   keyChanges: string[]
-): any => ({
+): import("@carbonsense/shared-types").TwinWorld => ({
   id,
   name,
   trajectory: {

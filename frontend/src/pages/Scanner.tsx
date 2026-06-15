@@ -80,8 +80,8 @@ export const Scanner: React.FC = () => {
 
     try {
       const data = await analyzeReceiptApi(file);
-      setResult(data);
-    } catch (err: any) {
+      setResult(data as ExtractionResult);
+    } catch (err: unknown) {
       console.error('Receipt scanner analysis failure:', err);
       // Stub fallback for local mock testing (so judges can run scanner without active Gemini keys)
       setTimeout(() => {

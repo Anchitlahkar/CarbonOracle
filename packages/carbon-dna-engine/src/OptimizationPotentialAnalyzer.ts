@@ -15,7 +15,7 @@ export class OptimizationPotentialAnalyzer {
     // Get 30-day baseline emissions
     const baseline30d = forecastProfile?.baseline?.['30d'];
     const totalBaseline30d = (baseline30d && baseline30d.snapshots && baseline30d.snapshots.length > 0)
-      ? baseline30d.snapshots.reduce((sum: number, s: any) => sum + s.projectedEmission, 0)
+      ? baseline30d.snapshots.reduce((sum: number, s: { projectedEmission: number }) => sum + s.projectedEmission, 0)
       : (behaviorProfile.featureVector.dailyEmissionsMean * 30);
 
     // Calculate score (percentage of baseline emissions that can be reduced, capped at 100)

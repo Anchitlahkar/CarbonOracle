@@ -1,6 +1,6 @@
 import rateLimit from 'express-rate-limit';
 
-const userKeyGenerator = (req: any) => {
+const userKeyGenerator = (req: import("express").Request) => {
   return req.user?.id || req.ip || 'anonymous';
 };
 

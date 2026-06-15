@@ -189,7 +189,7 @@ describe('Optimization Engine Suite', () => {
       const vec = makeMockVector(10.0, 0.2, 0.2, 0.4, 0.2);
       const bp = makeMockProfile(vec);
       const fp = makeMockForecast(10.0);
-      delete (fp as any).baseline;
+      delete (fp as Record<string, unknown>).baseline;
       const savings = estimator.estimate(mockInterventionNoSignal, bp, fp);
       expect(savings).toBe(18.0);
     });
@@ -243,7 +243,7 @@ describe('Optimization Engine Suite', () => {
         type: 'FrequentBeefConsumption',
         strength: 0.8,
         confidence: 0.9,
-        description: '', reasoning: '', evidence: null as any, detectedAt: new Date(),
+        description: '', reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date(),
       };
       const bp = makeMockProfile(vec, 0, [signal]);
       const fp = makeMockForecast(10.0);
@@ -321,7 +321,7 @@ describe('Optimization Engine Suite', () => {
         type: 'FrequentBeefConsumption',
         strength: 0.6,
         confidence: 0.9,
-        description: '', reasoning: '', evidence: null as any, detectedAt: new Date(),
+        description: '', reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date(),
       };
       const bp = makeMockProfile(vec, 40, [signal]); // riskFactor = 0.4
       const fp = makeMockForecast(10.0);
@@ -366,7 +366,7 @@ describe('Optimization Engine Suite', () => {
         type: 'FrequentBeefConsumption',
         strength: 0.8,
         confidence: 0.9,
-        description: '', reasoning: '', evidence: null as any, detectedAt: new Date(),
+        description: '', reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date(),
       };
       const bp = makeMockProfile(vec, 50, [signal]);
       const fp = makeMockForecast(10.0);
@@ -762,7 +762,7 @@ describe('Optimization Engine Suite', () => {
 
     test('43. Fails when behaviorProfile is missing', () => {
       const fp = makeMockForecast(12.0);
-      const res = engine.generateOptimizationPlan(null as any, fp);
+      const res = engine.generateOptimizationPlan(null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, fp);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('BehaviorProfile is required');
@@ -771,7 +771,7 @@ describe('Optimization Engine Suite', () => {
 
     test('44. Fails when forecastProfile is missing', () => {
       const bp = makeMockProfile(makeMockVector(12.0));
-      const res = engine.generateOptimizationPlan(bp, null as any);
+      const res = engine.generateOptimizationPlan(bp, null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('ForecastProfile is required');
@@ -792,7 +792,7 @@ describe('Optimization Engine Suite', () => {
       const bp = makeMockProfile(makeMockVector(12.0));
       const fp = makeMockForecast(12.0);
       // Force an error inside planning by corrupting behaviorProfile signals array
-      bp.signals = null as any;
+      bp.signals = null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence;
       const res = engine.generateOptimizationPlan(bp, fp);
       expect(res.success).toBe(false);
     });

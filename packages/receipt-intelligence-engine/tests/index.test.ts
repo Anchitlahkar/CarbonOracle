@@ -8,7 +8,7 @@ import { AIUsageMetrics } from '@carbonsense/shared-types';
 class MockModelProvider implements ModelProvider {
   public name = 'mock-provider';
   
-  constructor(private mockResponse: any, private mockSuccess = true) {}
+  constructor(private mockResponse: Record<string, unknown>, private mockSuccess = true) {}
 
   public async generateText(
     prompt: string,
@@ -19,7 +19,7 @@ class MockModelProvider implements ModelProvider {
 
   public async generateJson<T>(
     prompt: string,
-    schema?: any,
+    schema?: unknown,
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>> {
     return ok({ data: this.mockResponse as T, usageMetrics: this.getMockMetrics() });
@@ -29,7 +29,7 @@ class MockModelProvider implements ModelProvider {
     imageBuffer: Buffer,
     mimeType: string,
     prompt: string,
-    schema?: any,
+    schema?: unknown,
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>> {
     if (this.mockSuccess) {

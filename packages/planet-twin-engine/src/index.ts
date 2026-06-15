@@ -76,7 +76,7 @@ export class PlanetTwinEngine implements IPlanetTwinEngine {
         carbonDNAProfile
       );
       return ok(profile);
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(error);
     }
   }

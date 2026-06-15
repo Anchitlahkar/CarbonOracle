@@ -282,7 +282,7 @@ describe('Planet Twin Engine Suite', () => {
     test('10. Projects correctly under partially defined forecasts', () => {
       const bp = makeMockProfile(makeMockVector(10.0));
       const fp = makeMockForecast(10.0);
-      delete (fp as any).baseline; // delete baseline field
+      delete (fp as Record<string, unknown>).baseline; // delete baseline field
       const plan = makeMockPlan([]);
 
       const res = simulator.simulate(bp, fp, plan);
@@ -753,7 +753,7 @@ describe('Planet Twin Engine Suite', () => {
       const fp = makeMockForecast(12.0);
       const plan = makeMockPlan();
       const dna = makeMockDNA();
-      const res = engine.simulatePlanetTwin(null as any, fp, plan, dna);
+      const res = engine.simulatePlanetTwin(null as never, fp, plan, dna);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('BehaviorProfile is required');
@@ -764,7 +764,7 @@ describe('Planet Twin Engine Suite', () => {
       const bp = makeMockProfile(makeMockVector(12.0));
       const plan = makeMockPlan();
       const dna = makeMockDNA();
-      const res = engine.simulatePlanetTwin(bp, null as any, plan, dna);
+      const res = engine.simulatePlanetTwin(bp, null as never, plan, dna);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('ForecastProfile is required');
@@ -775,7 +775,7 @@ describe('Planet Twin Engine Suite', () => {
       const bp = makeMockProfile(makeMockVector(12.0));
       const fp = makeMockForecast(12.0);
       const dna = makeMockDNA();
-      const res = engine.simulatePlanetTwin(bp, fp, null as any, dna);
+      const res = engine.simulatePlanetTwin(bp, fp, null as never, dna);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('OptimizationPlan is required');
@@ -786,7 +786,7 @@ describe('Planet Twin Engine Suite', () => {
       const bp = makeMockProfile(makeMockVector(12.0));
       const fp = makeMockForecast(12.0);
       const plan = makeMockPlan();
-      const res = engine.simulatePlanetTwin(bp, fp, plan, null as any);
+      const res = engine.simulatePlanetTwin(bp, fp, plan, null as never);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('CarbonDNAProfile is required');
@@ -812,7 +812,7 @@ describe('Planet Twin Engine Suite', () => {
       const plan = makeMockPlan();
       const dna = makeMockDNA();
       // Corrupt profile to force exception
-      bp.featureVector = null as any;
+      bp.featureVector = null as never;
 
       const res = engine.simulatePlanetTwin(bp, fp, plan, dna);
       expect(res.success).toBe(false);

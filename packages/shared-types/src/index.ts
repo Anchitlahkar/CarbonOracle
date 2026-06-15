@@ -22,7 +22,7 @@ export interface CarbonEntry {
   subCategory: string;
   amountKg: number;
   source: 'manual' | 'scanner' | 'ai_coach';
-  metadata: Record<string, any> | null;
+  metadata: Record<string, unknown> | null;
   loggedAt: Date;
 }
 

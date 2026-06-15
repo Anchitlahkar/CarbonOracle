@@ -18,7 +18,7 @@ interface Message {
 /**
  * Streams the offline intelligence mode response deterministically.
  */
-async function streamOfflineMode(res: any, contexts: any) {
+async function streamOfflineMode(res: import("express").Response, contexts: Record<string, unknown>) {
   const dna = contexts?.carbonDNAProfile;
   const optimization = contexts?.optimizationPlan;
   const twin = contexts?.planetTwinProfile;
@@ -95,7 +95,7 @@ router.get('/context', authMiddleware, async (req, res) => {
     const userId = req.user?.id || 'test-user-id';
     const context = getUserContextProfiles(userId);
     return res.status(200).json({ data: context, error: null });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('[CoachRoute] Error fetching context:', err);
     return res.status(500).json({ data: null, error: 'Failed to retrieve coach context' });
   }
@@ -124,11 +124,11 @@ const chatBodySchema = z.object({
  * @param evidence Diagnostics details
  */
 async function generateProviderResponse(
-  res: any,
-  provider: any,
+  res: import("express").Response,
+  provider: import("@carbonsense/ai-orchestration").GeminiModelProvider,
   prompt: string,
   startTime: number,
-  evidence: any
+  evidence: Record<string, unknown>[]
 ) {
   if (provider.generateTextStream) {
     const streamResult = await provider.generateTextStream(prompt);
@@ -181,10 +181,10 @@ async function generateProviderResponse(
  * @param userId Context user identifier
  */
 async function executeChatIntelligence(
-  res: any,
+  res: import("express").Response,
   message: string,
   conversationHistory: Message[],
-  contexts: any,
+  contexts: Record<string, unknown>,
   startTime: number,
   userId: string
 ) {
@@ -236,7 +236,7 @@ router.post('/chat',
 
       await executeChatIntelligence(res, message, conversationHistory, contexts, startTime, userId);
       res.end();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('[CoachRoute] Unexpected runtime error in chat, falling back to Offline Mode:', err);
       try {
         await streamOfflineMode(res, contexts);

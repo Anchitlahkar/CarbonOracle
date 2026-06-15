@@ -6,14 +6,14 @@ export class ReductionEstimator {
    * over a 30-day window.
    */
   public estimate(
-    intervention: any,
+    intervention: unknown,
     behaviorProfile: BehaviorProfile,
     forecastProfile: ForecastProfile
   ): number {
     // 1. Calculate 30-day baseline emissions
     const baseline30d = forecastProfile?.baseline?.['30d'];
     const totalBaseline30d = (baseline30d && baseline30d.snapshots && baseline30d.snapshots.length > 0)
-      ? baseline30d.snapshots.reduce((sum: number, s: any) => sum + s.projectedEmission, 0)
+      ? baseline30d.snapshots.reduce((sum: number, s: { projectedEmission: number }) => sum + s.projectedEmission, 0)
       : (behaviorProfile.featureVector.dailyEmissionsMean * 30);
 
     // 2. Resolve ratio for the target category

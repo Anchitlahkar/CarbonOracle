@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-export default async function handler(req: any, res: any) {
+export default async function handler(req: import("express").Request, res: import("express").Response) {
   const dir = process.cwd();
   try {
     const files = fs.readdirSync(dir);
@@ -17,7 +17,7 @@ export default async function handler(req: any, res: any) {
       backendExists,
       backendFiles
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     return res.status(500).json({ error: err.message });
   }
 }

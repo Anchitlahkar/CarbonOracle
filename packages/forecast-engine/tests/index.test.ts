@@ -275,7 +275,7 @@ describe('Forecast Engine Suite', () => {
     test('26. Labels transport driver as Personal Vehicle Commutes when car dependency signal active', () => {
       const vec = makeMockVector(10.0, 2.0, 0.60, 0.20, 0.10, 0.10);
       const mockCarSignal = [
-        { id: 's1', type: 'HighCarDependency', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }
+        { id: 's1', type: 'HighCarDependency', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }
       ];
       const drivers = analyzer.analyze(vec, mockCarSignal);
       expect(drivers[0].driver).toBe('Personal Vehicle & Air Travel');
@@ -284,7 +284,7 @@ describe('Forecast Engine Suite', () => {
     test('27. Labels food driver as High-Impact Beef Diet when beef signal active', () => {
       const vec = makeMockVector(10.0, 2.0, 0.20, 0.60, 0.10, 0.10);
       const mockBeefSignal = [
-        { id: 's1', type: 'FrequentBeefConsumption', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }
+        { id: 's1', type: 'FrequentBeefConsumption', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }
       ];
       const drivers = analyzer.analyze(vec, mockBeefSignal);
       const foodDriver = drivers.find((d) => d.driver === 'High-Impact Beef/Meat Diet');
@@ -307,7 +307,7 @@ describe('Forecast Engine Suite', () => {
     test('29. Calculates personal transport counterfactual savings', () => {
       const vec = makeMockVector(10.0, 2.0, 0.60, 0.20, 0.10, 0.10); // transport = 60%
       const mockCarSignal = [
-        { id: 's1', type: 'HighCarDependency', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }
+        { id: 's1', type: 'HighCarDependency', description: '', strength: 0.8, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }
       ];
       const results = forecaster.analyze(vec, mockCarSignal, []);
       const carCounterfactual = results.find((r) => r.action === 'Personal Vehicle Usage');
@@ -319,7 +319,7 @@ describe('Forecast Engine Suite', () => {
       const vec = makeMockVector(10.0, 2.0);
       vec.weeklyBeefCount = 7; // 1 serving beef per day = 6.75 kg
       const mockBeefSignal = [
-        { id: 's1', type: 'FrequentBeefConsumption', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }
+        { id: 's1', type: 'FrequentBeefConsumption', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }
       ];
       const results = forecaster.analyze(vec, mockBeefSignal, []);
       const beefCounterfactual = results.find((r) => r.action === 'Beef Diet Choices');
@@ -338,7 +338,7 @@ describe('Forecast Engine Suite', () => {
     test('32. Calculates shopping counterfactual savings', () => {
       const vec = makeMockVector(10.0, 2.0, 0.20, 0.20, 0.20, 0.40); // 40% shopping
       const mockShopSignal = [
-        { id: 's1', type: 'ShoppingHeavyBehavior', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as any, detectedAt: new Date() }
+        { id: 's1', type: 'ShoppingHeavyBehavior', description: '', strength: 1.0, confidence: 0.9, reasoning: '', evidence: null as unknown as import("@carbonsense/shared-types").BehaviorSignalEvidence, detectedAt: new Date() }
       ];
       const results = forecaster.analyze(vec, mockShopSignal, []);
       const shopCounterfactual = results.find((r) => r.action === 'Discretionary Shopping Purchases');

@@ -17,7 +17,7 @@ export interface ModelProvider {
 
   generateJson<T>(
     prompt: string,
-    schema?: any,
+    schema?: unknown,
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>>;
 
@@ -25,14 +25,14 @@ export interface ModelProvider {
     imageBuffer: Buffer,
     mimeType: string,
     prompt: string,
-    schema?: any,
+    schema?: unknown,
     options?: AIModelOptions
   ): Promise<Result<{ data: T; usageMetrics: AIUsageMetrics }>>;
 
   generateTextStream?(
     prompt: string,
     options?: AIModelOptions
-  ): Promise<Result<{ stream: AsyncIterable<any>; countTokens: (text: string) => Promise<number> }>>;
+  ): Promise<Result<{ stream: AsyncIterable<unknown>; countTokens: (text: string) => Promise<number> }>>;
 }
 
 export class ProviderRegistry {

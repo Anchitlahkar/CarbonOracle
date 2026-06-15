@@ -328,7 +328,7 @@ describe('Carbon DNA Engine Suite', () => {
       const vec = makeMockVector(10.0);
       const bp = makeMockProfile(vec);
       const fp = makeMockForecast(10.0);
-      delete (fp as any).baseline;
+      delete (fp as Record<string, unknown>).baseline;
       const list = [
         makeMockCandidate('1', 'food', 30.0, 50, 50),
       ];
@@ -381,7 +381,7 @@ describe('Carbon DNA Engine Suite', () => {
 
     test('22. Handles missing forecast baseline profile safely', () => {
       const fp = makeMockForecast(10.0, 80, 0.8);
-      delete (fp as any).baseline;
+      delete (fp as Record<string, unknown>).baseline;
       const reliability = analyzer.analyze(fp, 20);
       // avgConfidence default = 0.5 => score = 50
       // reliability = 80 * 0.4 + 50 * 0.4 + 80 * 0.2 = 32 + 20 + 16 = 68
@@ -581,7 +581,7 @@ describe('Carbon DNA Engine Suite', () => {
     test('44. Fails when behaviorProfile is missing', () => {
       const fp = makeMockForecast(12.0);
       const plan = makeMockPlan();
-      const res = engine.generateDNAProfile(null as any, fp, plan);
+      const res = engine.generateDNAProfile(null as never, fp, plan);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('BehaviorProfile is required');
@@ -591,7 +591,7 @@ describe('Carbon DNA Engine Suite', () => {
     test('45. Fails when forecastProfile is missing', () => {
       const bp = makeMockProfile(makeMockVector(12.0));
       const plan = makeMockPlan();
-      const res = engine.generateDNAProfile(bp, null as any, plan);
+      const res = engine.generateDNAProfile(bp, null as never, plan);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('ForecastProfile is required');
@@ -601,7 +601,7 @@ describe('Carbon DNA Engine Suite', () => {
     test('46. Fails when optimizationPlan is missing', () => {
       const bp = makeMockProfile(makeMockVector(12.0));
       const fp = makeMockForecast(12.0);
-      const res = engine.generateDNAProfile(bp, fp, null as any);
+      const res = engine.generateDNAProfile(bp, fp, null as never);
       expect(res.success).toBe(false);
       if (!res.success) {
         expect(res.error.message).toContain('OptimizationPlan is required');
@@ -625,7 +625,7 @@ describe('Carbon DNA Engine Suite', () => {
       const fp = makeMockForecast(12.0);
       const plan = makeMockPlan();
       // Corrupt behaviorProfile to force an exception
-      bp.featureVector = null as any;
+      bp.featureVector = null as never;
 
       const res = engine.generateDNAProfile(bp, fp, plan);
       expect(res.success).toBe(false);
@@ -634,10 +634,10 @@ describe('Carbon DNA Engine Suite', () => {
     test('49. Handles missing integrity and confidence fallbacks in ForecastReliabilityAnalyzer', () => {
       const reliabilityAnalyzer = new ForecastReliabilityAnalyzer();
       const fp = makeMockForecast(12.0);
-      delete (fp as any).integrity;
-      delete (fp.baseline['30d'] as any).confidence;
-      delete (fp.baseline['90d'] as any).confidence;
-      delete (fp.baseline['365d'] as any).confidence;
+      delete (fp as Record<string, unknown>).integrity;
+      delete (fp.baseline['30d'] as Record<string, unknown>).confidence;
+      delete (fp.baseline['90d'] as Record<string, unknown>).confidence;
+      delete (fp.baseline['365d'] as Record<string, unknown>).confidence;
 
       const reliability = reliabilityAnalyzer.analyze(fp, 20);
       // integrityScore fallback = 50 => 50 * 0.4 = 20
@@ -652,7 +652,7 @@ describe('Carbon DNA Engine Suite', () => {
       const bp = makeMockProfile(makeMockVector(10.0));
       const fp = makeMockForecast(10.0);
       const plan = makeMockPlan();
-      delete (plan as any).candidates;
+      delete (plan as Record<string, unknown>).candidates;
 
       const res = potentialAnalyzer.analyze(bp, fp, plan);
       expect(res.potentialScore).toBe(0);

@@ -30,7 +30,7 @@ export class DefaultReceiptIntelligenceEngine implements ReceiptIntelligenceEngi
     let compiledPrompt: { template: string; version: string };
     try {
       compiledPrompt = PromptManager.compilePrompt('receipt-analysis', {});
-    } catch (error: any) {
+    } catch (error: unknown) {
       return fail(new ValidationError(`Failed to load receipt analysis prompt: ${error.message}`));
     }
 
