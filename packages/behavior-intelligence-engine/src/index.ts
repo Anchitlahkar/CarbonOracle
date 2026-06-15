@@ -25,7 +25,7 @@ export class BehaviorIntelligenceEngine implements IBehaviorIntelligenceEngine {
       const profile = this.aggregator.aggregate(userId, entries);
       return ok(profile);
     } catch (error: unknown) {
-      return fail(error);
+      return fail(error as Error);
     }
   }
 }

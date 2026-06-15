@@ -1,12 +1,25 @@
 import { BehaviorProfile, ForecastProfile } from '@carbonsense/shared-types';
 
+
+export interface RawIntervention {
+  id: string;
+  title: string;
+  description: string;
+  category: import("@carbonsense/shared-types").CarbonCategory;
+  baseResistance: number;
+  baseDifficulty: number;
+  applicableSignal?: string;
+  savingsMultiplier: number;
+  baseSavingsKg: number;
+}
+
 export class ReductionEstimator {
   /**
    * Estimates the carbon reduction potential (in kg CO2e) for a given intervention
    * over a 30-day window.
    */
   public estimate(
-    intervention: unknown,
+    intervention: RawIntervention,
     behaviorProfile: BehaviorProfile,
     forecastProfile: ForecastProfile
   ): number {

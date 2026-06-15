@@ -27,7 +27,7 @@ export class OptimizationPlanner {
   ): OptimizationCandidate[] {
     const interventions = getInterventions();
 
-    const candidates: Omit<OptimizationCandidate, 'rank' | 'score'>[] = interventions.map(inter => {
+    const candidates: Omit<OptimizationCandidate, 'rank' | 'score'>[] = (interventions as unknown as import("./ReductionEstimator.js").RawIntervention[]).map((inter) => {
       const estimatedSavingsKg = this.reductionEstimator.estimate(inter, behaviorProfile, forecastProfile);
       const difficulty = this.difficultyEstimator.estimate(inter, behaviorProfile, forecastProfile);
       const resistanceScore = this.resistanceModel.estimate(inter, behaviorProfile, forecastProfile);

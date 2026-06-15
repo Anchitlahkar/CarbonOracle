@@ -1,11 +1,24 @@
 import { BehaviorProfile, ForecastProfile, BehaviorResistanceScore } from '@carbonsense/shared-types';
 
+
+export interface RawIntervention {
+  id: string;
+  title: string;
+  description: string;
+  category: import("@carbonsense/shared-types").CarbonCategory;
+  baseResistance: number;
+  baseDifficulty: number;
+  applicableSignal?: string;
+  savingsMultiplier: number;
+  baseSavingsKg: number;
+}
+
 export class BehaviorResistanceModel {
   /**
    * Computes the behavior resistance score including risk factor and habit strength analysis.
    */
   public estimate(
-    intervention: unknown,
+    intervention: RawIntervention,
     behaviorProfile: BehaviorProfile,
     forecastProfile: ForecastProfile
   ): BehaviorResistanceScore {

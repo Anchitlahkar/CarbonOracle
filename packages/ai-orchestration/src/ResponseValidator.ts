@@ -28,7 +28,7 @@ export class ResponseValidator {
 
       return ok(parsed);
     } catch (error: unknown) {
-      return fail(new ValidationError(`Failed to parse model response as JSON: ${error.message}`));
+      return fail(new ValidationError(`Failed to parse model response as JSON: ${(error as Error).message}`));
     }
   }
 }

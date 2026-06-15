@@ -62,7 +62,7 @@ export class GeminiModelProvider implements ModelProvider {
 
       return ok({ text, usageMetrics });
     } catch (error: unknown) {
-      return fail(new InfrastructureError(`Gemini Text execution failed: ${error.message}`));
+      return fail(new InfrastructureError(`Gemini Text execution failed: ${(error as Error).message}`));
     }
   }
 
@@ -103,7 +103,7 @@ export class GeminiModelProvider implements ModelProvider {
 
       return ok({ data: validation.value, usageMetrics });
     } catch (error: unknown) {
-      return fail(new InfrastructureError(`Gemini JSON execution failed: ${error.message}`));
+      return fail(new InfrastructureError(`Gemini JSON execution failed: ${(error as Error).message}`));
     }
   }
 
@@ -158,7 +158,7 @@ export class GeminiModelProvider implements ModelProvider {
 
       return ok({ data: validation.value, usageMetrics });
     } catch (error: unknown) {
-      return fail(new InfrastructureError(`Gemini Vision execution failed: ${error.message}`));
+      return fail(new InfrastructureError(`Gemini Vision execution failed: ${(error as Error).message}`));
     }
   }
 
@@ -179,7 +179,7 @@ export class GeminiModelProvider implements ModelProvider {
         }
       });
     } catch (error: unknown) {
-      return fail(new InfrastructureError(`Gemini stream failed: ${error.message}`));
+      return fail(new InfrastructureError(`Gemini stream failed: ${(error as Error).message}`));
     }
   }
 }

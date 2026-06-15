@@ -110,7 +110,7 @@ export class CarbonDNAEngine implements ICarbonDNAEngine {
 
       return ok(profile);
     } catch (error: unknown) {
-      return fail(error);
+      return fail(error as Error);
     }
   }
 }

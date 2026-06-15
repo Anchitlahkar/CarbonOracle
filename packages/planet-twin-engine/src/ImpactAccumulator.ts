@@ -8,9 +8,9 @@ export class ImpactAccumulator {
   public accumulate(cumulativeEmissionsKg: number): ImpactProjection {
     const factors = getImpactFactors();
 
-    const trees = cumulativeEmissionsKg * (factors.treesOffsetPerKg ?? 0.04545);
-    const vehicleKm = cumulativeEmissionsKg * (factors.vehicleKmPerKg ?? 5.0);
-    const householdDays = cumulativeEmissionsKg * (factors.householdEnergyDaysPerKg ?? 0.1);
+    const trees = cumulativeEmissionsKg * ((factors.treesOffsetPerKg as number) ?? 0.04545);
+    const vehicleKm = cumulativeEmissionsKg * ((factors.vehicleKmPerKg as number) ?? 5.0);
+    const householdDays = cumulativeEmissionsKg * ((factors.householdEnergyDaysPerKg as number) ?? 0.1);
 
     return {
       cumulativeEmissionsKg: parseFloat(cumulativeEmissionsKg.toFixed(2)),

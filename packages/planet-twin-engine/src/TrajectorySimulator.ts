@@ -11,7 +11,7 @@ export class TrajectorySimulator {
     optimizationPlan: OptimizationPlan
   ): { current: TwinTrajectory; optimized: TwinTrajectory; aggressive: TwinTrajectory } {
     const config = getPlanetTwinConfig();
-    const intervals: number[] = config.snapshotIntervals || [30, 90, 180, 365];
+    const intervals: number[] = (config.snapshotIntervals as number[]) || [30, 90, 180, 365];
 
     const mean = behaviorProfile.featureVector.dailyEmissionsMean;
 

@@ -31,7 +31,7 @@ export class DefaultReceiptIntelligenceEngine implements ReceiptIntelligenceEngi
     try {
       compiledPrompt = PromptManager.compilePrompt('receipt-analysis', {});
     } catch (error: unknown) {
-      return fail(new ValidationError(`Failed to load receipt analysis prompt: ${error.message}`));
+      return fail(new ValidationError(`Failed to load receipt analysis prompt: ${(error as Error).message}`));
     }
 
     // 2. Call the AI model provider visual analyzer

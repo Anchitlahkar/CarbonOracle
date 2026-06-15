@@ -6,7 +6,7 @@ export default async function handler(req: import("express").Request, res: impor
   try {
     const files = fs.readdirSync(dir);
     const backendExists = fs.existsSync(path.join(dir, 'backend'));
-    let backendFiles = [];
+    let backendFiles: string[] = [];
     if (backendExists) {
       backendFiles = fs.readdirSync(path.join(dir, 'backend'));
     }
@@ -18,6 +18,7 @@ export default async function handler(req: import("express").Request, res: impor
       backendFiles
     });
   } catch (err: unknown) {
-    return res.status(500).json({ error: err.message });
+    const error = err instanceof Error ? err : new Error(String(err));
+    return res.status(500).json({ error: error.message });
   }
 }

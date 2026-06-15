@@ -34,7 +34,7 @@ export class ForecastEngine implements IForecastEngine {
     try {
       return this.aggregator.aggregate(input);
     } catch (error: unknown) {
-      return fail(error);
+      return fail(error as Error);
     }
   }
 }

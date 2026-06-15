@@ -1,11 +1,24 @@
 import { BehaviorProfile, ForecastProfile } from '@carbonsense/shared-types';
 
+
+export interface RawIntervention {
+  id: string;
+  title: string;
+  description: string;
+  category: import("@carbonsense/shared-types").CarbonCategory;
+  baseResistance: number;
+  baseDifficulty: number;
+  applicableSignal?: string;
+  savingsMultiplier: number;
+  baseSavingsKg: number;
+}
+
 export class DifficultyEstimator {
   /**
    * Estimates implementation difficulty score (0 to 100) and difficulty level ('easy' | 'medium' | 'hard').
    */
   public estimate(
-    intervention: unknown,
+    intervention: RawIntervention,
     behaviorProfile: BehaviorProfile,
     forecastProfile: ForecastProfile
   ): { score: number; level: 'easy' | 'medium' | 'hard' } {

@@ -7,10 +7,11 @@ export default async function handler(req: import("express").Request, res: impor
     }
     return app(req, res);
   } catch (err: unknown) {
+    const error = err instanceof Error ? err : new Error(String(err));
     return res.status(500).json({
       error: 'Vercel handler failed',
-      message: err.message,
-      stack: err.stack
+      message: error.message,
+      stack: error.stack
     });
   }
 }

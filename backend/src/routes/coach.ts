@@ -1,4 +1,5 @@
 import express from 'express';
+import { CarbonDNAProfile, OptimizationPlan, BehaviorProfile, ForecastProfile } from '@carbonsense/shared-types';
 import { providerRegistry } from '@carbonsense/ai-orchestration';
 import { authMiddleware } from '../middleware/auth.js';
 import { coachRateLimiter } from '../middleware/rateLimit.js';
@@ -19,8 +20,8 @@ interface Message {
  * Streams the offline intelligence mode response deterministically.
  */
 async function streamOfflineMode(res: import("express").Response, contexts: Record<string, unknown>) {
-  const dna = contexts?.carbonDNAProfile;
-  const optimization = contexts?.optimizationPlan;
+  const dna = contexts?.carbonDNAProfile as CarbonDNAProfile | undefined;
+  const optimization = contexts?.optimizationPlan as OptimizationPlan | undefined;
   const twin = contexts?.planetTwinProfile;
 
   const category = dna?.primaryCategory || 'transport';
@@ -63,11 +64,11 @@ async function streamOfflineMode(res: import("express").Response, contexts: Reco
 
   // Build evidence blocks
   const evidence = contexts ? CoachContextBuilder.buildEvidence(
-    contexts.behaviorProfile,
-    contexts.forecastProfile,
-    contexts.optimizationPlan,
-    contexts.carbonDNAProfile,
-    contexts.planetTwinProfile
+    contexts.behaviorProfile as BehaviorProfile,
+    contexts.forecastProfile as import("@carbonsense/shared-types").ForecastProfile,
+    contexts.optimizationPlan as import("@carbonsense/shared-types").OptimizationPlan,
+    contexts.carbonDNAProfile as import("@carbonsense/shared-types").CarbonDNAProfile,
+    contexts.planetTwinProfile as import("@carbonsense/shared-types").PlanetTwinProfile
   ) : [];
 
   res.write(`data: ${JSON.stringify({
@@ -141,7 +142,7 @@ async function generateProviderResponse(
     let aggregatedText = '';
 
     for await (const chunk of stream) {
-      const text = chunk.text();
+      const text = (chunk as { text: () => string }).text();
       if (text) {
         aggregatedText += text;
         res.write(`data: ${JSON.stringify({ text })}\n\n`);
@@ -191,18 +192,18 @@ async function executeChatIntelligence(
   const user = getUserProfile(userId);
   const { systemInstruction, contextText, evidence } = CoachPromptBuilder.buildPrompt(
     user,
-    contexts.behaviorProfile,
-    contexts.forecastProfile,
-    contexts.optimizationPlan,
-    contexts.carbonDNAProfile,
-    contexts.planetTwinProfile
+    contexts.behaviorProfile as BehaviorProfile,
+    contexts.forecastProfile as import("@carbonsense/shared-types").ForecastProfile,
+    contexts.optimizationPlan as import("@carbonsense/shared-types").OptimizationPlan,
+    contexts.carbonDNAProfile as import("@carbonsense/shared-types").CarbonDNAProfile,
+    contexts.planetTwinProfile as import("@carbonsense/shared-types").PlanetTwinProfile
   );
 
   const historyText = conversationHistory.map(m => `${m.role === 'user' ? 'User' : 'TERRA'}: ${m.content}`).join('\n');
   const prompt = `System Instruction:\n${systemInstruction}\n\nContext:\n${contextText}\n\nHistory:\n${historyText}\n\nUser: ${message}\nTERRA:`;
 
   const provider = providerRegistry.get();
-  await generateProviderResponse(res, provider, prompt, startTime, evidence);
+  await generateProviderResponse(res, provider as import("@carbonsense/ai-orchestration").GeminiModelProvider, prompt, startTime, evidence as unknown as Record<string, unknown>[]);
 }
 
 /**

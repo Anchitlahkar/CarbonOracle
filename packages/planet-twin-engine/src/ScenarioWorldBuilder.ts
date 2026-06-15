@@ -91,9 +91,9 @@ export class ScenarioWorldBuilder {
 
       // Weighted score
       const rawScore =
-        (emissionsComponent * weights.emissions) +
-        (sustainabilityComponent * weights.sustainability) +
-        (optimizationComponent * weights.optimization);
+        (emissionsComponent * ((weights as Record<string, number>).emissions)) +
+        (sustainabilityComponent * ((weights as Record<string, number>).sustainability)) +
+        (optimizationComponent * ((weights as Record<string, number>).optimization));
       const score = Math.max(0, Math.min(100, Math.round(rawScore)));
 
       return {

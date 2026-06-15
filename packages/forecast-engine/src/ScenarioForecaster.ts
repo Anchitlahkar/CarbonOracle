@@ -7,10 +7,10 @@ import {
 import { getScenarioLibrary } from '@carbonsense/knowledge-base';
 
 export class ScenarioForecaster {
-  private library: Record<string, unknown>;
+  private library: Record<string, import("@carbonsense/shared-types").ScenarioDefinition>;
 
   constructor() {
-    this.library = getScenarioLibrary();
+    this.library = getScenarioLibrary() as Record<string, import("@carbonsense/shared-types").ScenarioDefinition>;
   }
 
   /**
@@ -26,7 +26,7 @@ export class ScenarioForecaster {
 
     scenarios.forEach((key) => {
       const def = this.library[key];
-      const result = this.projectSingleScenario(vector, key, def, horizonDays, baseConfidence);
+      const result = this.projectSingleScenario(vector, key, def as import("@carbonsense/shared-types").ScenarioDefinition, horizonDays, baseConfidence);
       results.push(result);
     });
 
@@ -36,7 +36,7 @@ export class ScenarioForecaster {
   private projectSingleScenario(
     vector: BehaviorFeatureVector,
     name: string,
-    definition: Record<string, unknown>,
+    definition: import("@carbonsense/shared-types").ScenarioDefinition,
     horizonDays: number,
     baseConfidence: number
   ): ForecastScenarioResult {
@@ -52,19 +52,19 @@ export class ScenarioForecaster {
       // Estimate beef emissions: 250g serving * 27.0 factor = 6.75 kg CO2e per serving
       const weeklyBeefEmissions = vector.weeklyBeefCount * 6.75;
       const dailyBeefEmissions = weeklyBeefEmissions / 7;
-      dailyReductionKg = dailyBeefEmissions * reduction;
+      dailyReductionKg = dailyBeefEmissions * (reduction as number);
     } else if (name === 'greenTransit') {
       // Deduct personal transport emissions
       const dailyTransportEmissions = mean * vector.transportRatio;
-      dailyReductionKg = dailyTransportEmissions * reduction;
+      dailyReductionKg = dailyTransportEmissions * (reduction as number);
     } else if (name === 'clampShopping') {
       // Deduct shopping emissions
       const dailyShoppingEmissions = mean * vector.shoppingRatio;
-      dailyReductionKg = dailyShoppingEmissions * reduction;
+      dailyReductionKg = dailyShoppingEmissions * (reduction as number);
     } else if (name === 'energyEfficiency') {
       // Deduct home utility energy emissions
       const dailyEnergyEmissions = mean * vector.energyRatio;
-      dailyReductionKg = dailyEnergyEmissions * reduction;
+      dailyReductionKg = dailyEnergyEmissions * (reduction as number);
     }
 
     // Clamp daily reduction to not exceed total daily emissions

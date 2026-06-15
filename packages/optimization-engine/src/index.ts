@@ -64,7 +64,7 @@ export class OptimizationEngine implements IOptimizationEngine {
 
       return ok(plan);
     } catch (error: unknown) {
-      return fail(error);
+      return fail(error as Error);
     }
   }
 }

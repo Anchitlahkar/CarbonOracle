@@ -21,7 +21,7 @@ export const references = referencesJson as unknown as ScientificReference[];
 export const methodologyMetadata = methodologyJson as unknown as MethodologyMetadata;
 export const behaviorThresholds = behaviorThresholdsJson as Record<string, unknown>;
 export const scenarioLibrary = scenarioLibraryJson as Record<string, unknown>;
-export const interventions = interventionsJson as Record<string, unknown>;
+export const interventions = interventionsJson as Record<string, unknown>[];
 export const impactFactors = impactFactorsJson as Record<string, unknown>;
 export const earthEquivalents = earthEquivalentsJson as Record<string, unknown>;
 export const planetTwinConfig = planetTwinConfigJson as Record<string, unknown>;
@@ -70,7 +70,7 @@ export function getScenarioLibrary(): Record<string, unknown> {
  * Returns intervention definitions.
  */
 export function getInterventions(): Record<string, unknown>[] {
-  return interventions;
+  return interventions as Record<string, unknown>[];
 }
 
 /**

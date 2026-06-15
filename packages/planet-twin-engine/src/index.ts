@@ -77,7 +77,7 @@ export class PlanetTwinEngine implements IPlanetTwinEngine {
       );
       return ok(profile);
     } catch (error: unknown) {
-      return fail(error);
+      return fail(error as Error);
     }
   }
 }
